@@ -29,12 +29,54 @@ def search():
 
         # Requête SQL pour sélectionner les données dans la table "articles"
         cursor = mydb.cursor()
-        sql = "SELECT nomPiece, datePiece FROM glo_2005_projet_concessionnairenouvelleauto.pieces " \
-              "WHERE pieces.categorie LIKE %s OR pieces.nomPiece LIKE %s"
-        cursor.execute(sql, ('%' + query + '%', '%' + query + '%'))
+        sql = "SELECT idPiece, nomPiece, categorie, poidsPiece, prixPiece, datePiece " \
+              "FROM glo_2005_projet_concessionnairenouvelleauto.pieces " \
+              "WHERE idPiece LIKE %s " \
+              "OR nomPiece LIKE %s " \
+              "OR categorie LIKE %s " \
+              "OR poidsPiece LIKE %s " \
+              "OR prixPiece LIKE %s " \
+              "OR datePiece LIKE %s"
+        cursor.execute(sql, ('%' + query + '%', '%' + query + '%', '%' + query + '%',
+                             '%' + query + '%', '%' + query + '%', '%' + query + '%'))
         results = cursor.fetchall()
 
-        return flask.render_template('exemple.html', results=results, query=query)
+        return flask.render_template('searchPiece.html', results=results, query=query)
+
+    return render_template('barre_recherche.html')
+
+
+
+@app.route('/search-auto', methods=['GET', 'POST'])
+def searchAuto():
+    if flask.request.method == 'POST':
+        # Récupérer la requête de l'utilisateur
+        queryAuto = flask.request.form['queryAuto']
+        print(queryAuto)
+
+        # Requête SQL pour sélectionner les données dans la table "articles"
+        cursor = mydb.cursor()
+        sql = "SELECT * FROM glo_2005_projet_concessionnairenouvelleauto.Automobile " \
+              "WHERE niv LIKE %s " \
+              "OR marque LIKE %s " \
+              "OR modele LIKE %s " \
+              "OR annee LIKE %s " \
+              "OR couleur LIKE %s " \
+              "OR odometre LIKE %s " \
+              "OR nbPlaces LIKE %s " \
+              "OR prixAuto LIKE %s " \
+              "OR locationVente LIKE %s " \
+              "OR sousCategorie LIKE %s " \
+              "OR poidsAuto LIKE %s " \
+              "OR dateAuto LIKE %s " \
+              "ORDER BY prixAuto"
+        cursor.execute(sql, ('%' + queryAuto + '%', '%' + queryAuto + '%', '%' + queryAuto + '%',
+                             '%' + queryAuto + '%', '%' + queryAuto + '%', '%' + queryAuto + '%',
+                             '%' + queryAuto + '%', '%' + queryAuto + '%', '%' + queryAuto + '%',
+                             '%' + queryAuto + '%', '%' + queryAuto + '%', '%' + queryAuto + '%'))
+        resultsAuto = cursor.fetchall()
+
+        return flask.render_template('searchAuto.html', results=resultsAuto, query=queryAuto)
 
     return render_template('barre_recherche.html')
 

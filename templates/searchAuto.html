@@ -37,15 +37,25 @@
 
     <div class="container mt-5">
         <h1>Résultats de recherche pour "{{ query }}"</h1>
-        <form action="{{ url_for('search') }}" method="post" class="search-form">
+        <form action="{{ url_for('searchAuto') }}" method="post" class="search-form">
             <input type="text" name="query" placeholder=" Cherchez de nouveau ici">
             <button type="submit">Rechercher</button>
         </form>
         <table>
             <thead>
                 <tr>
-                    <th>Titre</th>
-                    <th>Contenu</th>
+                    <th>Niv</th>
+                    <th>Marque</th>
+                    <th>Modèle</th>
+                    <th>Année</th>
+                    <th>Couleur</th>
+                    <th>Odomètre</th>
+                    <th>Nombre de places</th>
+                    <th>Prix</th>
+                    <th>Location / Vente</th>
+                    <th>Sous-Catégorie</th>
+                    <th>Poids</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +63,16 @@
                 <tr>
                     <td>{{ result[0] }}</td>
                     <td>{{ result[1] }}</td>
+                    <td>{{ result[2] }}</td>
+                    <td>{{ result[3] }}</td>
+                    <td>{{ result[4] }}</td>
+                    <td>{{ result[5] }}</td>
+                    <td>{{ result[6] }}</td>
+                    <td>{{ result[7] }}</td>
+                    <td>{{ result[8] }}</td>
+                    <td>{{ result[9] }}</td>
+                    <td>{{ result[10] }}</td>
+                    <td>{{ result[11] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
