@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <title>Recherche</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+   <style>
+      body {
+        background-color: #0D1B2A;
+      }
+    </style>
+<body>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+         <ul class="navbar-nav">
+            <li class="nav-item ">
+               <a class="nav-link" href="/">Accueil</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="/login">Login </a>
+            </li>
+            <li class="nav-item active">
+               <a class="nav-link" href="/search">Recherche <span class="sr-only">(current)</span></a>
+            </li>
+         </ul>
+      </div>
+   </nav>
+   <div class="container mt-5">
+      <h1 class="mb-4">Que cherchez vous?</h1>
+      <form action="/search" method="POST">
+         <div class="form-group">
+
+            <input type="text" class="form-control" id="query" name="query" required placeholder="tapez ici">
+         </div>
+         <button type="submit" class="btn btn-primary">Rechercher</button>
+      </form>
+   </div>
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-S8MgYsF0a0eX9cQ1L8lAVW2EVlmc7VdOw/D0R8VYpCJvO7Lb9UhfpIjA5PpN5g+q" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
