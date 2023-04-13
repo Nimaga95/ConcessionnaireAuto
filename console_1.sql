@@ -2,11 +2,11 @@ drop database IF EXISTS glo_2005_Projet_ConcessionnaireNouvelleAuto; #comme cela
 
 CREATE DATABASE IF NOT EXISTS glo_2005_Projet_ConcessionnaireNouvelleAuto;
 
-select * from Automobile; ## pour tester la méthode import_Automobile_from_csv()
+#select * from Automobile; ## pour tester la méthode import_Automobile_from_csv()
 #select * from Client; ## pour tester la méthode import_Client_from_csv()
 #select * from Concessionnaire; ## pour tester la méthode import_Concessionnaire_from_csv
-select * from Employe; ## pour tester la méthode import_Employe_from_csv()
-select * from Pieces; ## pour tester la méthode import_Pieces_from_csv()
+#select * from Employe; ## pour tester la méthode import_Employe_from_csv()
+#select * from Pieces; ## pour tester la méthode import_Pieces_from_csv()
 #select * from fourniAutomobiles; ## pour tester la méthode import_FournisseurAutomobiles_from_csv()
 #select * from fourniPieces; ## pour tester la méthode import_FournisseursPieces_from_csv()
 #select * from FournisseursAutomobiles; ## pour tester la méthode import_FournisseurAutomobiles_from_csv()

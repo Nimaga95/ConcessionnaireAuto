@@ -70,7 +70,8 @@ def import_Automobile_from_csv():
         for line in reader:
             niv, marque, modele, annee, couleur, odometre, nbPlaces, \
                 prixAuto, locationVente, sousCategorie, poidsAuto, dateAuto = \
-                line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
+                line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], \
+                line[11]
 
             request = f"INSERT INTO Automobile (niv, marque, modele, annee, couleur, odometre, " \
                       f"nbPlaces, prixAuto, locationVente, sousCategorie, poidsAuto, dateAuto) VALUES " \
@@ -170,7 +171,8 @@ def import_LavageAuto_from_csv():
         reader = csv.reader(file)
 
         for line in reader:
-            typeLavage, prixLavage, niv, idClient, idEmploye, dateLavage = line[0], line[1], line[2], line[3], line[4], line[5]
+            typeLavage, prixLavage, niv, idClient, idEmploye, dateLavage = line[0], line[1], line[2], line[3], line[4], \
+            line[5]
 
             request = f"INSERT INTO LavageAuto (typeLavage, prixLavage, niv, idClient, idEmploye, dateLavage)" \
                       f"VALUES ('{typeLavage}', '{prixLavage}', '{niv}', '{idClient}', '{idEmploye}', '{dateLavage}');"
@@ -183,7 +185,8 @@ def import_Vente_from_csv():
         reader = csv.reader(file)
 
         for line in reader:
-            niv, idClient, idEmploye, dureeFinancement, tauxInteret, dateVente = line[0], line[1], line[2], line[3], line[4], line[5]
+            niv, idClient, idEmploye, dureeFinancement, tauxInteret, dateVente = line[0], line[1], line[2], line[3], \
+            line[4], line[5]
 
             request = f"INSERT INTO Vente (niv, idClient, idEmploye, dureeFinancement, tauxInteret, dateVente)" \
                       f"VALUES ('{niv}', '{idClient}', '{idEmploye}', '{dureeFinancement}', '{tauxInteret}', '{dateVente}');"
@@ -196,8 +199,9 @@ def import_Reparation_from_csv():  # enlever le typeReparation et descriptionREP
         reader = csv.reader(file)
 
         for line in reader:
-            niv, idClient, idEmploye, idPiece, tempsDeTravail, coutReparation, dateReparation = line[0], line[1], line[2], line[3], \
-            line[4], line[5], line [6]
+            niv, idClient, idEmploye, idPiece, tempsDeTravail, coutReparation, dateReparation = line[0], line[1], line[
+                2], line[3], \
+                line[4], line[5], line[6]
 
             request = f"INSERT INTO Reparation (niv, idClient, idEmploye, idPiece, tempsDeTravail, coutReparation, dateReparation)" \
                       f"VALUES ('{niv}', '{idClient}', '{idEmploye}', '{idPiece}', '{tempsDeTravail}', '{coutReparation}', '{dateReparation}');"
@@ -210,7 +214,8 @@ def import_Location_from_csv():
         reader = csv.reader(file)
 
         for line in reader:
-            niv, idClient, idEmploye, dureeLocation, tauxInteret, dateLocation = line[0], line[1], line[2], line[3], line[4], line [5]
+            niv, idClient, idEmploye, dureeLocation, tauxInteret, dateLocation = line[0], line[1], line[2], line[3], \
+            line[4], line[5]
 
             request = f"INSERT INTO Location (niv, idClient, idEmploye, dureeLocation, tauxInteret, dateLocation)" \
                       f"VALUES ('{niv}', '{idClient}', '{idEmploye}', '{dureeLocation}', '{tauxInteret}', '{dateLocation}');"
@@ -234,21 +239,5 @@ def import_tuples():
     import_Location_from_csv()
 
 
-
-
-# def rechercherPiece(pieceOuCategorie):
-#     requestPiece = f"""SELECT * FROM glo_2005_Projet_ConcessionnaireNouvelleAuto.Pieces
-#                                 WHERE nomPiece = "{pieceOuCategorie}"
-#                                 OR categorie = "{pieceOuCategorie}" """
-#
-#     cursor.execute(requestPiece)
-
-
 if __name__ == '__main__':
-    # app = \
     import_tuples()
-
-    # app.run()
-
-
-
