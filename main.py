@@ -1,16 +1,18 @@
 import flask
 from flask import Flask, request, render_template,flash
-import mysql.connector
+import pymysql
 
 app = flask.Flask(__name__)
 
-# Configuration de la connexion à la base de données MySQL
-mydb = mysql.connector.connect(
+mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="teddybear",
-    database="glo_2005_projet_concessionnairenouvelleauto"
+    password="teddybear",  # à remplacer par le password de votre ordinateur pour les tests
+    db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
+    autocommit=True,
 )
+
+cursor = mydb.cursor()
 
 
 @app.route('/')
