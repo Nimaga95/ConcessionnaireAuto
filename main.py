@@ -114,7 +114,7 @@ def searchEmploye():
 @app.route('/profil-employe/<int:id>')
 def profilEmploye(id):
     employe = getEmployeById(id)
-    print(employe)
+    # print(employe)
     if employe :
         return render_template('profil_Employes.html', employe=employe)
     else:
@@ -123,7 +123,7 @@ def profilEmploye(id):
 
 def getEmployeById(id):
 
-        # Requête SQL pour sélectionner les données dans la table "articles"
+        # Requête SQL pour sélectionner les données dans la table "employes"
     cursor = mydb.cursor()
     sql = "SELECT * FROM glo_2005_projet_concessionnairenouvelleauto.employe WHERE idEmploye =%s"
     cursor.execute(sql, (id,))
