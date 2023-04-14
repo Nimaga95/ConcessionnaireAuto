@@ -55,14 +55,6 @@ th {
     margin: 10px 20px 0 0;
 }
 
-.navbar {
-    background-color: #333;
-    color: darkseagreen;
-    height: 50px;
-    padding: 30px;
-    font-size: 20px;
-}
-
 
 body {
     font-family: Arial, sans-serif;
@@ -75,11 +67,17 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.35);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    color: #ff0c00;
+}
+
+h2 {
     font-size: 2.5rem;
     margin-top: 0;
     color: #ff0c00;
@@ -116,6 +114,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #0D1B2A;
 }
 
 th, td {
@@ -129,25 +128,29 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
 }
 
 
-nav {
-    background-color: #333;
-    overflow: hidden;
-    height: 50px;
-}
+/*nav {*/
+/*    background-color: #333;*/
+/*    overflow: hidden;*/
+/*    height: 50px;*/
+/*}*/
 
-nav a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
+/*nav a {*/
+/*    float: left;*/
+/*    display: block;*/
+/*    color: white;*/
+/*    text-align: center;*/
+/*    padding: 14px 16px;*/
+/*    text-decoration: none;*/
+/*    font-size: 17px;*/
+/*}*/
 
 nav a:hover {
     background-color: #ddd;
@@ -184,8 +187,6 @@ body::before {
     padding-top: 50px;
 }
 
-
-
 .login-form {
     background-color: #fff;
     padding: 30px;
@@ -201,6 +202,7 @@ label {
     display: block;
     font-size: 1.5em;
     margin-bottom: 20px;
+    color: #ff0c00;
 }
 
 input[type="email"],
@@ -216,7 +218,7 @@ button[type="submit"] {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #333;
+    background-color: #646464;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -225,5 +227,63 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #444;
+    background-color: #ff0000;
 }
+
+.nav-area:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.nav-area ul {
+    list-style: none;
+    margin: 0;
+}
+
+.nav-area > ul > li {
+    float: left;
+    position: relative;
+}
+
+.nav-area ul li a{
+    text-decoration: none;
+    color: #fff;
+    padding: 15px 20px;
+    display: block;
+}
+
+.nav-area ul li:hover a{
+    background: #34495a;
+}
+
+.nav-area ul ul {
+    position: absolute;
+    padding: 0;
+    min-width: 160px;
+    display: none;
+    top: 100%;
+    left: 0;
+}
+
+.nav-area ul li:hover > ul{
+    display: block;
+}
+
+.nav-area ul ul li:hover a{
+    background: #262626;
+}
+
+.nav-area ul ul li{
+    position: relative;
+}
+
+.nav-area ul ul ul{
+    top: 0;
+    left: 100%;
+}
+
+.nav-area ul ul ul li:hover a{
+    background: #34495a;
+}
+

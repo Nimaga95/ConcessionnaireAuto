@@ -22,36 +22,41 @@
       }
     </style>
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav ml-auto">
-             <li class="nav-item">
-               <a class="nav-link" href="/">Accueil</a>
-            </li>
-             <li class="nav-item active">
-               <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
-            </li>
-             <li class="nav-item ">
-               <a class="nav-link" href="/sign-up">Sign up </a>
-            </li>
-            <li class="nav-item ">
-               <a class="nav-link" href="/search">Recherche </a>
-            </li>
-             <li class="nav-item">
-                <a class="nav-link" href="/add-fournisseur-auto">Fournisseurs </a>
-            </li>
-         </ul>
-      </div>
+ <nav class="nav-area">
+       <ul>
+           <li><a href="/">Acceuil</a></li>
+           <li><a href="/login">Login</a></li>
+           <li><a href="/sign-up">Sign up</a></li>
+           <li><a href="search">Recherche</a>
+                <ul>
+                    <li><a href="/search">Pièces</a></li>
+                    <li><a href="/search-auto">Automobile</a></li>
+                </ul>
+           </li>
+           <li><a href="#">Fournisseurs</a>
+                <ul>
+                    <li><a href="/add-fournisseur-auto">Automobiles</a>
+                        <ul>
+                            <li><a href="/add-fournisseur-auto">Ajouter</a>
+                            <li><a href="/search-fournisseur-auto">Trouver</a>
+                        </ul>
+                    </li>
+                    <li><a href="#">Pièces</a>
+                        <ul>
+                            <li><a href="/add-fournisseur-pieces">Ajouter</a>
+                            <li><a href="/search-fournisseur-pieces">Trouver</a>
+                        </ul>
+                    </li>
+                </ul>
+           </li>
+       </ul>
    </nav>
 
     <header>
         <h1>Concessionnaire NouvelleAuto</h1>
     </header>
 
-    <div class="container">
+    <div class="container mt-4">
         <h1>Connexion</h1>
         <form action="#" method="POST" class="login-form">
             <div class="form-group">

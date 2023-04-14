@@ -22,48 +22,44 @@
       }
     </style>
 <body>
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav ml-auto">
-            <li class="nav-item ">
-               <a class="nav-link" href="/">Accueil</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="/login">Login </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="/sign-up">Sign up</a>
-            </li>
-            <li class="nav-item active">
-               <a class="nav-link" href="/search">Recherche <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/add-fournisseur-auto">Fournisseurs </a>
-            </li>
-         </ul>
-      </div>
+   <nav class="nav-area">
+       <ul>
+           <li><a href="/">Acceuil</a></li>
+           <li><a href="/login">Login</a></li>
+           <li><a href="/sign-up">Sign up</a></li>
+           <li><a href="search">Recherche</a>
+                <ul>
+                    <li><a href="/search">Pièces</a></li>
+                    <li><a href="/search-auto">Automobile</a></li>
+                </ul>
+           </li>
+           <li><a href="#">Fournisseurs</a>
+                <ul>
+                    <li><a href="/add-fournisseur-auto">Automobiles</a>
+                        <ul>
+                            <li><a href="/add-fournisseur-auto">Ajouter</a>
+                            <li><a href="/search-fournisseur-auto">Trouver</a>
+                        </ul>
+                    </li>
+                    <li><a href="#">Pièces</a>
+                        <ul>
+                            <li><a href="/add-fournisseur-pieces">Ajouter</a>
+                            <li><a href="/search-fournisseur-pieces">Trouver</a>
+                        </ul>
+                    </li>
+                </ul>
+           </li>
+       </ul>
    </nav>
 
         <h1>Concessionnaire NouvelleAuto</h1>
 
    <div class="container mt-5">
-      <h1 class="mb-4">Pièces?</h1>
-      <form action="/search" method="POST">
+      <h1 class="mb-4">Trouver Fournisseur Pièces</h1>
+      <form action="/add-fournisseur-auto" method="POST">
          <div class="form-group">
 
-            <input type="text" class="form-control" id="query" name="query" required placeholder="tapez ici">
-         </div>
-         <button type="submit" class="btn btn-primary">Rechercher</button>
-      </form>
-   </div>
-
-   <div class="container mt-5">
-      <h1 class="mb-4">Automobile?</h1>
-      <form action="/search-auto" method="POST">
-         <div class="form-group">
-
-            <input type="text" class="form-control" id="queryAuto" name="queryAuto" required placeholder="tapez ici">
+            <input type="text" class="form-control" id="queryAddFournAuto" name="queryAddFournAuto" required placeholder="tapez ici">
          </div>
          <button type="submit" class="btn btn-primary">Rechercher</button>
       </form>
