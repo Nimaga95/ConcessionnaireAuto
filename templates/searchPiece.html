@@ -24,13 +24,7 @@
            <li><a href="/">Acceuil</a></li>
            <li><a href="/login">Login</a></li>
            <li><a href="/sign-up">Sign up</a></li>
-           <li><a href="search">Recherche</a>
-                <ul>
 
-                    <li><a href="/search">Pièces</a></li>
-                    <li><a href="/search-auto">Automobile</a></li>
-                </ul>
-           </li>
            <li><a href="#">Fournisseurs</a>
                 <ul>
                     <li><a href="/add-fournisseur-auto">Automobiles</a>
@@ -47,6 +41,13 @@
                     </li>
                 </ul>
            </li>
+           <li><a href="/search">Rechercher</a>
+                <ul>
+                    <li><a href="/search-employe">Employes</a></li>
+                    <li><a href="/search">Pièces</a></li>
+                    <li><a href="/search-auto">Automobile</a></li>
+                </ul>
+           </li>
        </ul>
    </nav>
 
@@ -54,7 +55,7 @@
         <h1>Résultats de recherche pour "{{ query }}"</h1>
         <form action="{{ url_for('search') }}" method="post" class="search-form">
             <input type="text" name="query" placeholder="tapez ici">
-            <button type="submit">Rechercher</button>
+            <button type="submit">Rechercher pièce</button>
         </form>
         <table>
             <thead>
