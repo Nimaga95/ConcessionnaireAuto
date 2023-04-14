@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Recherche</title>
-   <!-- Chargement des fichiers CSS -->
+     <!-- Chargement des fichiers CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../static/style.css">
@@ -23,7 +23,9 @@
     </style>
 <body>
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
       <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav ml-auto">
             <li class="nav-item ">
@@ -32,14 +34,15 @@
             <li class="nav-item">
                <a class="nav-link" href="/login">Login </a>
             </li>
-            <li class="nav-item">
-               <a class="nav-link" href="/sign-up">Sign up</a>
-            </li>
-            <li class="nav-item active">
-               <a class="nav-link" href="/search">Recherche <span class="sr-only">(current)</span></a>
+             </li>
+               <li class="nav">
+                <a class="nav-link" href="/sign-up">Sign up </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/add-fournisseur-auto">Fournisseurs </a>
+               <a class="nav-link" href="/search">Recherche </a>
+            </li>
+             <li class="nav-item active">
+               <a class="nav-link" href="/add-fournisseur-auto">Fournisseurs </a>
             </li>
          </ul>
       </div>
@@ -47,30 +50,16 @@
 
         <h1>Concessionnaire NouvelleAuto</h1>
 
-   <div class="container mt-5">
-      <h1 class="mb-4">Pièces?</h1>
-      <form action="/search" method="POST">
+    <div class="container mt-5">
+      <h1 class="mb-4">Ajouter Fournisseur Automobile</h1>
+      <form action="/add-fournisseur-auto" method="POST">
          <div class="form-group">
 
-            <input type="text" class="form-control" id="query" name="query" required placeholder="tapez ici">
+            <input type="text" class="form-control" id="queryAddFournAuto" name="queryAddFournAuto" required placeholder="tapez ici">
          </div>
-         <button type="submit" class="btn btn-primary">Rechercher</button>
+         <button type="submit" class="btn btn-primary">Ajouter</button>
       </form>
    </div>
 
-   <div class="container mt-5">
-      <h1 class="mb-4">Automobile?</h1>
-      <form action="/search-auto" method="POST">
-         <div class="form-group">
-
-            <input type="text" class="form-control" id="queryAuto" name="queryAuto" required placeholder="tapez ici">
-         </div>
-         <button type="submit" class="btn btn-primary">Rechercher</button>
-      </form>
-   </div>
-
-   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-S8MgYsF0a0eX9cQ1L8lAVW2EVlmc7VdOw/D0R8VYpCJvO7Lb9UhfpIjA5PpN5g+q" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

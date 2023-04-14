@@ -81,6 +81,32 @@ def searchAuto():
     return render_template('barre_recherche.html')
 
 
+@app.route('/add-fournisseur-auto', methods=['GET', 'POST'])
+def addFournisseurAuto():
+    if flask.request.method == 'POST':
+        # Récupérer la requête de l'utilisateur
+        queryAddFournAuto = flask.request.form['queryAddFournAuto']
+        print(queryAddFournAuto)
+
+        # Requête SQL pour sélectionner les données dans la table "articles"
+        cursor = mydb.cursor()
+        # sql = "INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.FournisseursAutomobiles (" \
+        #       "idFournisseursVehicules, nomFournisseursVehicules, adresseFournisseursVehicules, " \
+        #       "numTelephoneFournisseursVehicules, adresseCourrielFournisseursVehicules, villeFournisseursVehicules, " \
+        #       "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
+        #       "VALUE ("{}")"
+        cursor.execute(sql, ('%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%',
+                             '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%',
+                             '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%',
+                             '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%'))
+        resultsAddFournAuto = cursor.fetchall()
+
+        return flask.render_template('ajoutFournisseurs.html', results=resultsAddFournAuto, query=queryAddFournAuto)
+
+    return render_template('ajoutFournisseurs.html')
+
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
