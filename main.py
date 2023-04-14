@@ -115,15 +115,14 @@ def searchEmploye():
 def profilEmploye(id):
     employe = getEmployeById(id)
     # print(employe)
-    if employe :
+    if employe:
         return render_template('profil_Employes.html', employe=employe)
     else:
         return 'Employé non trouvé'
 
 
 def getEmployeById(id):
-
-        # Requête SQL pour sélectionner les données dans la table "employes"
+    # Requête SQL pour sélectionner les données dans la table "employes"
     cursor = mydb.cursor()
     sql = "SELECT * FROM glo_2005_projet_concessionnairenouvelleauto.employe WHERE idEmploye =%s"
     cursor.execute(sql, (id,))
@@ -132,8 +131,6 @@ def getEmployeById(id):
     # print(resultsEmploye)
 
     return resultsEmploye
-
-
 
 
 @app.route('/add-fournisseur-auto', methods=['GET', 'POST'])
@@ -177,10 +174,10 @@ def searchFournisseurAuto():
         #       "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
         #       "VALUE ("{}")"
         cursor.execute(sql, (
-        '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%',
-        '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%',
-        '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%',
-        '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%'))
+            '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%',
+            '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%',
+            '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%',
+            '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%', '%' + querySearchFournAuto + '%'))
         resultsSearchFournAuto = cursor.fetchall()
 
         return flask.render_template('fournisseurs.html', results=resultsSearchFournAuto, query=querySearchFournAuto)
@@ -203,10 +200,10 @@ def addFournisseurPieces():
         #       "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
         #       "VALUE ("{}")"
         cursor.execute(sql, (
-        '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
-        '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
-        '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
-        '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%'))
+            '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
+            '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
+            '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
+            '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%'))
         resultsAddFournPieces = cursor.fetchall()
 
         return flask.render_template('fournisseurs.html', results=resultsAddFournPieces, query=queryAddFournPieces)
@@ -229,10 +226,10 @@ def searchFournisseurPieces():
         #       "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
         #       "VALUE ("{}")"
         cursor.execute(sql, (
-        '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%',
-        '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%',
-        '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%',
-        '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%'))
+            '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%',
+            '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%',
+            '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%',
+            '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%'))
         resultsSearchFournPieces = cursor.fetchall()
 
         return flask.render_template('fournisseurs.html', results=resultsSearchFournPieces,
