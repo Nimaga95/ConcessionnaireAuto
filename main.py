@@ -129,7 +129,7 @@ def getEmployeById(id):
     cursor.execute(sql, (id,))
     resultsEmploye = cursor.fetchone()
 
-    print(resultsEmploye)
+    # print(resultsEmploye)
 
     return resultsEmploye
 
