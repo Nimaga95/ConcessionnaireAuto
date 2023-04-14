@@ -1,73 +1,73 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>Vente de voiture - NouvelleAuto</title>
-   <!-- Chargement des fichiers CSS -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet" type="text/css" href="../static/style.css">
-   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-   <!-- Chargement des fichiers JavaScript -->
-   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-   <script src="application.js"></script>
-   <script src="../static/application.js"></script>
-</head>
-   <style>
-      body {
-        background-color: #0D1B2A;
-      }
-    </style>
+{% extends 'base.html' %}
 
-<body>
-
-   <header>
-      <h1>Vente de voiture - NouvelleAuto</h1>
-   </header>
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar">
-         <ul class="navbar-nav">
-            <li class="nav-item active ">
-               <a class="nav-link" href="/">Accueil</a>
-            </li>
-            <li class="nav">
-               <a class="nav-link" href="/login">Login </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="/search">Recherche </a>
-            </li>
-         </ul>
-      </div>
-   </nav>
-
-   <main>
-      <div class="container">
-         <div class="row">
-            <div class="col-md-6">
-               <img src="../static/images/img1.jpg" alt="Voiture à vendre" class="img-fluid">
-            </div>
-            <div class="col-md-6">
-               <h2>Nom du modèle de voiture</h2>
-               <h3>Prix : 20 000 €</h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget sapien at turpis bibendum interdum. Nam elementum tempus tortor, quis bibendum odio. Sed facilisis purus vel est vestibulum bibendum. Praesent a ex vel lectus lobortis posuere. Duis euismod purus eget dolor feugiat venenatis. Nullam rutrum justo ut risus venenatis pharetra.</p>
-               <ul>
-                  <li>Année : 2020</li>
-                  <li>Kilométrage : 10 000 km</li>
-                  <li>Couleur : Blanc</li>
-               </ul>
-               <button type="button" class="btn btn-primary">Acheter</button>
-            </div>
-         </div>
-      </div>
-   </main>
-
-   <footer>
-      <!-- Pied de page -->
-   </footer>
-</
+{% block content %}
+<div class="container">
+  <h1>Profil de {{ employe.nom }} {{ employe.prenom }}</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Informations personnelles</h2>
+      <table class="table">
+        <tr>
+          <th>Nom :</th>
+          <td>{{ employe.nom }}</td>
+        </tr>
+        <tr>
+          <th>Prénom :</th>
+          <td>{{ employe.prenom }}</td>
+        </tr>
+        <tr>
+          <th>Date de naissance :</th>
+          <td>{{ employe.date_naissance.strftime('%d/%m/%Y') }}</td>
+        </tr>
+        <tr>
+          <th>Adresse :</th>
+          <td>{{ employe.adresse }}</td>
+        </tr>
+        <tr>
+          <th>Email :</th>
+          <td>{{ employe.email }}</td>
+        </tr>
+        <tr>
+          <th>Téléphone :</th>
+          <td>{{ employe.telephone }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-8">
+      <h2>Emploi</h2>
+      <table class="table">
+        <tr>
+          <th>Poste :</th>
+          <td>{{ employe.poste }}</td>
+        </tr>
+        <tr>
+          <th>Service :</th>
+          <td>{{ employe.service }}</td>
+        </tr>
+        <tr>
+          <th>Salaire :</th>
+          <td>{{ employe.salaire }} €</td>
+        </tr>
+        <tr>
+          <th>Date d'embauche :</th>
+          <td>{{ employe.date_embauche.strftime('%d/%m/%Y') }}</td>
+        </tr>
+        <tr>
+          <th>Nombre d'années d'ancienneté :</th>
+          <td>{{ employe.nombre_annees_anciennete }}</td>
+        </tr>
+        <tr>
+          <th>Manager :</th>
+          <td>
+            {% if employe.manager %}
+              <a href="{{ url_for('profilEmploye', id=employe.manager.id) }}">{{ employe.manager.nom }} {{ employe.manager.prenom }}</a>
+            {% else %}
+              Aucun
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

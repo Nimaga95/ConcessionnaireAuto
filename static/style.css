@@ -72,15 +72,17 @@ body {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-top: 0;
-    color: #ff0c00;
+    color: whitesmoke;
+    text-align: center;
+    font-weight: bold;
 }
 
 h2 {
     font-size: 2.5rem;
     margin-top: 0;
-    color: #ff0c00;
+    color:whitesmoke ;
 }
 
 .search-form {
@@ -175,8 +177,8 @@ body::before {
   content: '';
   position: fixed;
   width: 100vw;
-  height: 100vh;
-  background-image: url("images/form-auto-img.png");
+  height: 100vw;
+  background-image: url("images/img1.jpg");
   background-size: cover;
   z-index: -1; /* added */
 }
@@ -187,23 +189,43 @@ body::before {
     padding-top: 50px;
 }
 
+.sign-up-form {
+
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+
+}
+
 .login-form {
     background-color: #fff;
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
 }
 
 .form-group {
     margin-bottom: 20px;
+
+
+}
+.form-group1 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+        text-align: right;
+
 }
 
 label {
     display: block;
     font-size: 1.5em;
     margin-bottom: 20px;
-    color: #ff0c00;
+    color: black;
 }
+
 
 input[type="email"],
 input[type="password"] {
@@ -227,7 +249,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #ff0000;
+    background-color: green;
 }
 
 .nav-area:after {
@@ -287,3 +309,58 @@ button[type="submit"]:hover {
     background: #34495a;
 }
 
+/*Table mis à jour*/
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #4285F4;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+td a {
+  color: #4285F4;
+  text-decoration: none;
+}
+
+td a:hover {
+  color: #0D47A1;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  th {
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    background-color: #4285F4;
+    color: #fff;
+  }
+
+  td {
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+  }
+}

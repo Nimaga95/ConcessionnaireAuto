@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Profil Employé</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+</head>
+   <style>
+      body {
+        background-color: #0D1B2A;
+      }
+    </style>
+
+<body>
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	  <a class="navbar-brand" href=""></a>
+	  <ul class="navbar-nav">
+          <li class="nav-item">
+	      <a class="nav-link" href="/">Accueil</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="/search-employe">Recherche d'employés</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="#">Profil Employé</a>
+	    </li>
+	  </ul>
+	</nav>
+
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="card">
+					<div class="card-header text-center">
+						<h4>Profil Employé</h4>
+					</div>
+					<div class="card-body">
+						<h2>Prénom : {{ employe[1]}}</h2>
+						<h2>Nom : {{ employe[2] }}</h2>
+						<h2>Age : {{ employe[3] }}</h2>
+						<h2>Téléphone : {{ employe[4] }}</h2>
+						<h2>Poste  : #{{ employe[5] }}</h2>
+						<h2>Emploi : {{ employe[6] }}</h2>
+						<h2>Salaire Annuel : {{ employe[7] }} $</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

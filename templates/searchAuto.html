@@ -26,6 +26,7 @@
            <li><a href="/sign-up">Sign up</a></li>
            <li><a href="search">Recherche</a>
                 <ul>
+
                     <li><a href="/search">Pièces</a></li>
                     <li><a href="/search-auto">Automobile</a></li>
                 </ul>
@@ -52,8 +53,8 @@
     <div class="container mt-5">
         <h1>Résultats de recherche pour "{{ query }}"</h1>
         <form action="{{ url_for('searchAuto') }}" method="post" class="search-form">
-            <input type="text" name="query" placeholder=" Cherchez de nouveau ici">
-            <button type="submit">Rechercher</button>
+            <input type="text" name="query" placeholder="tapez ici">
+            <button type="submit">Rechercher-auto</button>
         </form>
         <table>
             <thead>
