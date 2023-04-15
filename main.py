@@ -388,6 +388,7 @@ def sign_up():
             result = cursor.fetchone()
             if result:
                 # L'adresse e-mail existe déjà, renvoyer un message d'erreur
+                # Triger ici?
                 flash('Ce compte existe déjà. Veuillez vous connecter ou choisir un autre email.')
                 return redirect(url_for('login'))
             else:
