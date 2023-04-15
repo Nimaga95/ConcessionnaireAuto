@@ -5,8 +5,8 @@
 header {
     font-size: 25px;
     text-align: justify-all;
-    margin: 0em 0;
-    color :white;
+    margin: 0em0;
+    color :White;
     font-weight: bold;
     /*background-color: #ADD8R6;*/
 }
@@ -74,7 +74,7 @@ body {
 h1 {
     font-size: 3rem;
     margin-top: 0;
-    color: whitesmoke;
+    color: white;
     text-align: center;
     font-weight: bold;
 }
@@ -137,6 +137,14 @@ tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
+nav.nav-area {
+    background-color: #000; /* votre couleur de fond ici */
+}
+
+nav.nav-area ul li a {
+    color: #fff; /* votre couleur de texte ici */
+}
+
 
 /*nav {*/
 /*    background-color: #333;*/
@@ -173,12 +181,19 @@ body {
     background-color: #f4f4f4;
 }
 
+html {
+  height: 100%;
+
+}
+
 body::before {
   content: '';
   position: fixed;
-  width: 100vw;
+    top:0;
+    left:0;
+    width: 100vw;
   height: 50vw;
-  background-image: url("images/img1.jpg");
+  background-image: url("images/img_3.png");
   background-size: cover;
   z-index: -1; /* added */
 }
