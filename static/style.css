@@ -502,3 +502,25 @@ td a:hover {
     transform: translateX(-200%);
   }
 }
+
+
+/*footer*/
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 10px;
+  text-align: left;
+}
+
+.about-page {
+  color: white;
+}
+
+
+.container p {
+  color: white;
+}

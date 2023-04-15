@@ -1,16 +1,11 @@
-import hashlib
-
+import pymysql
 import flask
 from flask import Flask, request, render_template, flash, redirect, session, url_for
-from passlib.hash import bcrypt_sha256
-
-import pymysql
 
 
 # install pip pymy
 
 app = flask.Flask(__name__)
-
 
 mydb = pymysql.connect(
     host="localhost",
@@ -246,23 +241,22 @@ def searchFournisseurPieces():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-
     if request.method == 'POST':
         email = request.form['email']
-        password = request.form ['password']
-        #print(password)
+        password = request.form['password']
+        # print(password)
 
         cursor = mydb.cursor()
         sql = "SELECT passe from users WHERE email = %s"
         cursor.execute(sql, (email,))
         resultat = cursor.fetchone()
 
-        if resultat is None :
-            flash('Identifiants incorrects. Veuillez réessayer.')
+        if resultat is None:
+            flash("Identifiants incorrects. Veuillez réessayer.", category='error')
         else:
             row = resultat[0].strip()
-            if row == password :
-            #session['user_id'] = user.id
+            if row == password:
+                # session['user_id'] = user.id
                 flash('Connexion reussie', category='success')
                 return render_template('page_utilisateur.html')
             else:
@@ -288,28 +282,35 @@ def sign_up():
         firstName = request.form['firstName']
         password1 = request.form['password1']
         password2 = request.form['password2']
-        print(email, firstName, password1, password2)
-        cursor = mydb.cursor()
-        sql = "INSERT INTO users VALUES (NULL, '{}', '{}', '{}', '{}', '{}', '{}', {}, '{}')",
-        cursor.execute(sql, (email,))
+
+        # print(email, firstName, password1, password2)
 
         if len(email) < 4:
-            flash('Email not valid.', category='error')
+            flash('Email invalide', category='error')
         if len(firstName) < 2:
-            flash('First name must be greater than 1 character.', category='error')
+            flash('Le nom doitre être plus grand qu\'un caractère', category='error')
         elif password1 != password2:
-            flash('Passwords don\'t match.', category='error')
+            flash('Les mot de passe ne correspodent pas', category='error')
         elif len(password1) < 7:
-            flash('Password must be at least 8 characters.', category='error')
+            flash('Le mot de passe doit faire au moins 8 caracteres.', category='error')
         else:
-            flash('Account created.', category='success')
+            flash('Compte crée avec succées', category='success')
+
+        # cursor = mydb.cursor()
+        # commande = "INSERT INTO users VALUES (NULL, '{}', '{}', '{}');".format\
+        #     (email, firstName, password1)
+        #
+        # cursor.execute(commande)
 
     return render_template("sign-up.html")
 
 
+@app.route('/appropos', methods=['GET', 'POST'])
+def appropos():
+    return render_template("a_propos.html")
 
 
 if __name__ == '__main__':
-    app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'
+    app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important
 
     app.run(debug=True)
