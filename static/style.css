@@ -562,3 +562,11 @@ input[type="text"], input[type="email"], input[type="name"] ,input[type="passwor
 .card-header {
   background-color: darkgray; /* couleur rouge */
 }
+/* container page a propos */
+#my container-2{
+    max-width: 920px;
+    max-height:30px ;
+    margin:  auto;
+}
+
+

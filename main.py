@@ -10,7 +10,7 @@ app = flask.Flask(__name__)
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="teddybear",  # à remplacer par le password de votre ordinateur pour les tests
+    password="Ni4157120162022",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
@@ -25,6 +25,14 @@ def home():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+
+     # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    print(user_id)
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
     if flask.request.method == 'POST':
         # Récupérer la requête de l'utilisateur
         query = flask.request.form['query']
@@ -51,6 +59,12 @@ def search():
 
 @app.route('/search-auto', methods=['GET', 'POST'])
 def searchAuto():
+    # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
     if flask.request.method == 'POST':
         # Récupérer la requête de l'utilisateur
         queryAuto = flask.request.form['queryAuto']
@@ -85,6 +99,12 @@ def searchAuto():
 
 @app.route('/search-employe', methods=['GET', 'POST'])
 def searchEmploye():
+    # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
     if flask.request.method == 'POST':
         # Récupérer la requête de l'utilisateur
         queryEmploye = flask.request.form['queryEmploye']
@@ -136,6 +156,13 @@ def getEmployeById(id):
 
 @app.route('/add-fournisseur-auto', methods=['GET', 'POST'])
 def addFournisseurAuto():
+         # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    print(user_id)
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
     if flask.request.method == 'POST':
         name = request.form['name']
         adress = request.form['adress']
@@ -182,6 +209,12 @@ def addFournisseurAuto():
 
 @app.route('/search-fournisseur-auto', methods=['GET', 'POST'])
 def searchFournisseurAuto():
+         # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    print(user_id)
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
     if flask.request.method == 'POST':
         # Récupérer la requête de l'utilisateur
         queryAuto = flask.request.form['queryAuto']
@@ -211,6 +244,13 @@ def searchFournisseurAuto():
 
 @app.route('/add-fournisseur-pieces', methods=['GET', 'POST'])
 def addFournisseurPieces():
+         # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    print(user_id)
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
     # if flask.request.method == 'POST':
     #     # Récupérer la requête de l'utilisateur
     #     queryAddFournPieces = flask.request.form['queryAddFournPieces']
@@ -237,6 +277,13 @@ def addFournisseurPieces():
 
 @app.route('/search-fournisseur-pieces', methods=['GET', 'POST'])
 def searchFournisseurPieces():
+         # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    print(user_id)
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
     if flask.request.method == 'POST':
         # Récupérer la requête de l'utilisateur
         querySearchFournPieces = flask.request.form['querySearchFournPieces']
@@ -273,17 +320,20 @@ def login():
         # print(password)
 
         cursor = mydb.cursor()
-        sql = "SELECT passe from users WHERE email = %s"
+        sql = "SELECT passe,email from users WHERE email = %s"
         cursor.execute(sql, (email,))
         resultat = cursor.fetchone()
+
 
         if resultat is None:
             flash("Identifiants incorrects. Veuillez réessayer.", category='error')
         else:
             row = resultat[0].strip()
             if row == password:
-                # session['user_id'] = user.id
-                flash('Connexion reussie', category='success')
+
+                session['user_id'] = email # ajout du code de la session
+                print(session)
+                #flash('Connexion reussie', category='success')
                 return render_template('page_utilisateur.html')
             else:
                 flash("Identifiants incorrects. Veuillez réessayer.", category='error')
@@ -293,11 +343,14 @@ def login():
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
-    return render_template('logout.html')
+    session.pop('user_id', None)
+
+    return render_template('home.html')
 
 
 @app.route('/page_utilisateur', methods=['POST', 'GET'])
 def utilisateur():
+
     return render_template('page_utilisateur.html')
 
 
@@ -340,3 +393,4 @@ if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important
 
     app.run(debug=True)
+
