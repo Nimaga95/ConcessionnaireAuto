@@ -8,6 +8,7 @@ header {
     margin: 0em0;
     color :White;
     font-weight: bold;
+
     /*background-color: #ADD8R6;*/
 }
 
@@ -195,8 +196,25 @@ body::before {
   height: 50vw;
   background-image: url("images/img_3.png");
   background-size: cover;
+  /*animation-name: scroll;*/
+  /*animation-duration: 60s;*/
+  /*animation-timing-function: cubic-bezier();*/
+  /*animation-iteration-count: infinite;*/
   z-index: -1; /* added */
 }
+
+/*@keyframes scroll {*/
+/*  50% {*/
+/*    background-image: url("images/img_3.png");*/
+/*  }*/
+/*  25% {*/
+/*    background-image: url("images/img_2.png");*/
+/*  }*/
+/*  100% {*/
+/*    background-image: url("images/img_1.png");*/
+/*  }*/
+/*}*/
+
 
 .container {
     width: 80%;
@@ -377,5 +395,110 @@ td a:hover {
     padding: 10px 0;
     width: 100%;
     border-bottom: 1px solid #ddd;
+  }
+}
+
+/*Logo*/
+
+
+.nav-area .logo {
+  background-image: url("images/logo.png"); /* chemin de l'image du logo */
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+
+/* Définition des images de fond */
+.slide1 {
+  background-image: url("images/img_3.png");
+}
+
+.slide2 {
+  background-image: url("images/img_2.png");
+}
+
+.slide3 {
+  background-image: url("images/img_3.png");
+}
+
+/* Définition de la classe pour le conteneur de l'animation */
+.slider-container {
+  position: relative;
+  height: 500px;
+  width: 100%;
+}
+
+/* Définition des boutons pour défiler les images */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.slider-btn.left {
+  left: 20px;
+}
+
+.slider-btn.right {
+  right: 20px;
+}
+
+/* Définition de l'animation */
+.slider-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 100%;
+  display: flex;
+  animation: slider 18s linear infinite;
+}
+
+.slider-animation:hover {
+  animation-play-state: paused;
+}
+
+/* Définition des images de l'animation */
+.slider-slide {
+  height: 100%;
+  flex: 1;
+  background-position: center;
+  background-size: cover;
+}
+
+.slider-slide:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.slider-slide:nth-child(2) {
+  animation-delay: 6s;
+}
+
+.slider-slide:nth-child(3) {
+  animation-delay: 12s;
+}
+
+/* Définition de l'animation de défilement */
+@keyframes slider {
+  0% {
+    transform: translateX(0%);
+  }
+  33% {
+    transform: translateX(0%);
+  }
+  66% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(-200%);
   }
 }
