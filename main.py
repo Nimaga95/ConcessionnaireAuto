@@ -136,26 +136,44 @@ def getEmployeById(id):
 
 @app.route('/add-fournisseur-auto', methods=['GET', 'POST'])
 def addFournisseurAuto():
-    # if flask.request.method == 'POST':
-    #     # Récupérer la requête de l'utilisateur
-    #     queryAddFournAuto = flask.request.form['queryAddFournAuto']
-    #     print(queryAddFournAuto)
-    #
-    #     # Requête SQL pour sélectionner les données dans la table "articles"
-    #     cursor = mydb.cursor()
-    #     # sql = "INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.FournisseursAutomobiles (" \
-    #     #       "idFournisseursVehicules, nomFournisseursVehicules, adresseFournisseursVehicules, " \
-    #     #       "numTelephoneFournisseursVehicules, adresseCourrielFournisseursVehicules, villeFournisseursVehicules, " \
-    #     #       "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
-    #     #       "VALUE ("{}")"
-    #     cursor.execute(sql,
-    #                    ('%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%',
-    #                     '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%',
-    #                     '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%',
-    #                     '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%', '%' + queryAddFournAuto + '%'))
-    #     resultsAddFournAuto = cursor.fetchall()
-    #
-    #     return flask.render_template('fournisseurs.html', results=resultsAddFournAuto, query=queryAddFournAuto)
+    if flask.request.method == 'POST':
+        name = request.form['name']
+        adress = request.form['adress']
+        tel = request.form['tel']
+        email = request.form['email']
+        city = request.form['city']
+        state = request.form['state']
+        country = request.form['country']
+
+
+        # print(name, firstName, password1, password2)
+
+        if len(name) < 2:
+            flash('Nom invalide', category='error')
+        if len(tel) < 10:
+            flash('Téléphone invalide', category='error')
+        if len(email) < 4:
+            flash('E-Mail invalide.', category='error')
+        if len(city) < 2:
+            flash('Ville invalide', category='error')
+        if len(state) < 2:
+            flash('État / Province invalide', category='error')
+        if len(country) < 2:
+            flash('Pays invalide', category='error')
+        if len(name) > 2:
+            flash('Fournisseur ajouté', category='success')
+
+        # Récupérer la requête de l'utilisateur
+        queryAddFournAuto = flask.request.form['queryEmploye']
+
+        # cursor = mydb.cursor()
+        # sql = f"""INSERT INTO todo (text) VALUE ("{text}")"""
+
+        # cursor = mydb.cursor()
+        # commande = "INSERT INTO users VALUES (NULL, '{}', '{}', '{}');".format\
+        #     (name, firstName, password1)
+        #
+        # cursor.execute(commande)
 
     return render_template('ajouterFournisseursAuto.html')
 
