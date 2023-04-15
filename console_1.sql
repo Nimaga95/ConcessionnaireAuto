@@ -18,6 +18,21 @@ CREATE DATABASE IF NOT EXISTS glo_2005_Projet_ConcessionnaireNouvelleAuto;
 
 USE glo_2005_Projet_ConcessionnaireNouvelleAuto;
 
+CREATE TABLE IF NOT EXISTS Users
+(
+    id         int AUTO_INCREMENT,
+    email  varchar(254)                 UNIQUE NOT NULL,
+    passe  varchar(254)                     NOT NULL,
+    first_name varchar(50)                      NOT NULL,
+    last_name  varchar(50)                      NOT NULL,
+    gender     enum ('Male', 'Female', 'Other') NOT NULL,
+    birthdate  char(10),
+    region     varchar(50),
+    phone      varchar(25)                      NOT NULL,
+    primary key (id)
+);
+
+
 CREATE TABLE IF NOT EXISTS Concessionnaire
 (
 

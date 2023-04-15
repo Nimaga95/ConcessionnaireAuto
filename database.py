@@ -4,12 +4,28 @@ import csv
 connection = pymysql.connect(
     host="localhost",
     user="root",
-    password="teddybear",  # à remplacer par le password de votre ordinateur pour les tests
+    password="Ni4157120162022",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
 
 cursor = connection.cursor()
+
+def import_Users_from_csv():
+    with open("Les tuples/tuples utilisateurs/users.csv") as file:
+        reader = csv.reader(file)
+
+        for line in reader:
+            email, passe, first_name, last_name,  birthdate, region, phone =\
+            line[0], line[1], line[2], line[3], line[4], line[5], line[6],
+
+
+            request = f"INSERT INTO users (email, passe, first_name, last_name,  birthdate, region, phone )" \
+                      f"VALUES " \
+                      f"('{email}', '{passe}', '{first_name}', '{last_name}'," \
+                      f"'{birthdate}', '{region}', '{phone}');"
+
+            cursor.execute(request)
 
 
 def import_Concessionnaire_from_csv():
@@ -224,6 +240,7 @@ def import_Location_from_csv():
 
 
 def import_tuples():
+    import_Users_from_csv()
     import_Concessionnaire_from_csv()
     import_Employe_from_csv()
     import_Client_from_csv()

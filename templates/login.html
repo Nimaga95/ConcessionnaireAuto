@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Page de connexion</title>
     <title><a href="/sign-up">Page de connexion - Inscrivez-vous</a></title>
+
+
      <!-- Chargement des fichiers CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,12 +19,14 @@
     <script src="application.js"></script>
     <script src="../static/application.js"></script>
 </head>
+
    <style>
       body {
         background-color: #0D1B2A;
       }
     </style>
 <body>
+
  <nav class="nav-area">
        <ul>
            <li><a href="/">Acceuil</a></li>
@@ -62,7 +66,7 @@
 
     <div class="container mt-5">
 <!--        <h1>Connexion</h1>-->
-        <form action="/page_utilisateur" method="POST" class="login-form">
+        <form  method="POST" class="login-form"> <!--action="/page_utilisateur"-->
             <div class="form-group">
                 <label for="email">Adresse email </label>
                 <input type="email" name="email" id="email" placeholder="votre email ici" required>
@@ -72,12 +76,16 @@
                 <input type="password" name="password" id="password" placeholder="votre mot de passe" required>
             </div>
             <button type="submit">Se connecter</button>
-            <a href="/page_utilisateur"></a>
+
             <div class="form-group1">
                 <a href="/sign-up">Page de compte? inscrivez-vous ici</a>
             </div>
 
         </form>
     </div>
+
+
+
+
 </body>
 </html>
