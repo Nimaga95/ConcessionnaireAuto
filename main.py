@@ -1,7 +1,8 @@
+import mysql.connector.errors
 import pymysql
 import flask
 from flask import Flask, request, render_template, flash, redirect, session, url_for
-
+import pycountry
 
 # install pip pymy
 
@@ -25,8 +26,7 @@ def home():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-
-     # Vérifier si l'utilisateur est connecté
+    # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
     print(user_id)
     if 'user_id' not in session:
@@ -156,7 +156,7 @@ def getEmployeById(id):
 
 @app.route('/add-fournisseur-auto', methods=['GET', 'POST'])
 def addFournisseurAuto():
-         # Vérifier si l'utilisateur est connecté
+    # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
     print(user_id)
     if 'user_id' not in session:
@@ -171,7 +171,6 @@ def addFournisseurAuto():
         city = request.form['city']
         state = request.form['state']
         country = request.form['country']
-
 
         # print(name, firstName, password1, password2)
 
@@ -205,11 +204,9 @@ def addFournisseurAuto():
     return render_template('ajouterFournisseursAuto.html')
 
 
-
-
 @app.route('/search-fournisseur-auto', methods=['GET', 'POST'])
 def searchFournisseurAuto():
-         # Vérifier si l'utilisateur est connecté
+    # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
     print(user_id)
     if 'user_id' not in session:
@@ -244,7 +241,7 @@ def searchFournisseurAuto():
 
 @app.route('/add-fournisseur-pieces', methods=['GET', 'POST'])
 def addFournisseurPieces():
-         # Vérifier si l'utilisateur est connecté
+    # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
     print(user_id)
     if 'user_id' not in session:
@@ -277,7 +274,7 @@ def addFournisseurPieces():
 
 @app.route('/search-fournisseur-pieces', methods=['GET', 'POST'])
 def searchFournisseurPieces():
-         # Vérifier si l'utilisateur est connecté
+    # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
     print(user_id)
     if 'user_id' not in session:
@@ -307,7 +304,8 @@ def searchFournisseurPieces():
             '%' + querySearchFournPieces + '%', '%' + querySearchFournPieces + '%'))
         resultsSearchFournPieces = cursor.fetchall()
 
-        return flask.render_template('searchFournisseurPieces.html', results=resultsSearchFournPieces, query=querySearchFournPieces)
+        return flask.render_template('searchFournisseurPieces.html', results=resultsSearchFournPieces,
+                                     query=querySearchFournPieces)
 
     return render_template('trouverFournisseursPieces.html')
 
@@ -324,17 +322,18 @@ def login():
         cursor.execute(sql, (email,))
         resultat = cursor.fetchone()
 
-
         if resultat is None:
             flash("Identifiants incorrects. Veuillez réessayer.", category='error')
+            return redirect(url_for('login'))
+
         else:
             row = resultat[0].strip()
             if row == password:
 
-                session['user_id'] = email # ajout du code de la session
-                print(session)
-                #flash('Connexion reussie', category='success')
-                return render_template('page_utilisateur.html')
+                session['user_id'] = email  # ajout du code de la session
+
+                # flash('Connexion reussie', category='success')
+                return redirect(url_for('utilisateur'))
             else:
                 flash("Identifiants incorrects. Veuillez réessayer.", category='error')
 
@@ -350,7 +349,6 @@ def logout():
 
 @app.route('/page_utilisateur', methods=['POST', 'GET'])
 def utilisateur():
-
     return render_template('page_utilisateur.html')
 
 
@@ -359,9 +357,15 @@ def sign_up():
     if request.method == 'POST':
         email = request.form['email']
         firstName = request.form['firstName']
+        Name = request.form['lastName']
+        sex = request.form['gender']
+        Date = request.form['birthdate']
+        country = request.form['country']
+        phone = request.form['phone']
         password1 = request.form['password1']
         password2 = request.form['password2']
 
+        # print(email, firstName, Name, sex, country,password2,password2)
         # print(email, firstName, password1, password2)
 
         if len(email) < 4:
@@ -370,18 +374,30 @@ def sign_up():
             flash('Le nom doit être plus grand qu\'un caractère', category='error')
         elif password1 != password2:
             flash('Les mot de passe ne correspondent pas', category='error')
-        elif len(password1) < 7:
+        elif len(password1) < 8:
             flash('Le mot de passe doit faire au moins 8 caracteres.', category='error')
+        elif not country:
+            flash('Veuillez sélectionner votre pays.', category='error')
+        elif not sex:
+            flash('Veuillez sélectionner votre pays.', category='error')
         else:
-            flash('Compte crée avec succées', category='success')
+            cursor = mydb.cursor()
 
-        # cursor = mydb.cursor()
-        # commande = "INSERT INTO users VALUES (NULL, '{}', '{}', '{}');".format\
-        #     (email, firstName, password1)
-        #
-        # cursor.execute(commande)
+            sql = "SELECT * FROM users WHERE email = %s"
+            cursor.execute(sql, (email,))
+            result = cursor.fetchone()
+            if result:
+                # L'adresse e-mail existe déjà, renvoyer un message d'erreur
+                flash('Ce compte existe déjà. Veuillez vous connecter ou choisir un autre email.')
+                return redirect(url_for('login'))
+            else:
+                sql = "INSERT INTO users (email, passe, first_name, last_name,  gender, birthdate, region, phone ) VALUES(%s, %s, %s,%s,%s,%s,%s,%s)"
+                cursor.execute(sql, (email, password1, firstName, Name, sex, Date, country, phone))
+                mydb.commit()
+                flash('Compte crée avec succées', category='success')
+                return redirect(url_for('login'))
 
-    return render_template("sign-up.html")
+    return render_template("sign-up.html", country=(list(pycountry.countries)))
 
 
 @app.route('/appropos', methods=['GET', 'POST'])
@@ -389,8 +405,10 @@ def appropos():
     return render_template("a_propos.html")
 
 
+# for country in pycountry.countries:
+#  print(country.name)
+
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important
 
     app.run(debug=True)
-
