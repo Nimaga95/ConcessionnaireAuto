@@ -23,10 +23,12 @@
     </style>
 <body>
    <nav class="nav-area">
-       <ul><li class="logo"> </li>
-           <li><a href="/">Acceuil</a></li>
+       <ul>
+           <li class="logo"> </li>
+           <li><a href="/">Accueil</a></li>
            <li><a href="/login">Login</a></li>
            <li><a href="/sign-up">Sign up</a></li>
+
 
            <li><a href="#">Fournisseurs</a>
                 <ul>
@@ -51,16 +53,17 @@
                     <li><a href="/search-auto">Automobile</a></li>
                 </ul>
            </li>
+           <li><a href="/appropos">À propos</a></li>
        </ul>
    </nav>
 
 
    <div class="container mt-5">
       <h1 class="mb-4">Trouver Fournisseur Pièces</h1>
-      <form action="/add-fournisseur-auto" method="POST">
+      <form action="/search-fournisseur-pieces" method="POST">
          <div class="form-group">
 
-            <input type="text" class="form-control" id="queryAddFournAuto" name="queryAddFournAuto" required placeholder="tapez ici">
+            <input type="text" class="form-control" id="querySearchFournPieces" name="querySearchFournPieces" required placeholder="tapez ici">
          </div>
          <button type="submit" class="btn btn-primary">Rechercher</button>
       </form>

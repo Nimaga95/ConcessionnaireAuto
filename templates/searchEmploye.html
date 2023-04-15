@@ -22,10 +22,12 @@
     </style>
 <body>
    <nav class="nav-area">
-       <ul><li class="logo"> </li>
-           <li><a href="/">Acceuil</a></li>
+       <ul>
+           <li class="logo"> </li>
+           <li><a href="/">Accueil</a></li>
            <li><a href="/login">Login</a></li>
            <li><a href="/sign-up">Sign up</a></li>
+
 
            <li><a href="#">Fournisseurs</a>
                 <ul>
@@ -50,15 +52,16 @@
                     <li><a href="/search-auto">Automobile</a></li>
                 </ul>
            </li>
+           <li><a href="/appropos">À propos</a></li>
        </ul>
    </nav>
 
     <div class="container mt-5">
-        <h1>Résultats de recherche pour "{{ query }}"</h1>
-<!--        <form action="{{ url_for('searchEmploye') }}" method="POST" class="search-form">-->
-<!--            <input type="text" name="query" placeholder="Nouvelle recherche">-->
-<!--            <button type="submit">Rechercher</button>-->
-<!--        </form>-->
+        <h1>Résultats de recherche d'un Employé pour <br> <b><i>"{{ query }}"</i></b></h1>
+        <form action="{{ url_for('searchEmploye') }}" method="POST" class="search-form">
+            <input type="text" name="queryEmploye" placeholder="Nouvelle recherche">
+            <button type="submit">Rechercher</button>
+        </form>
 
         <button onclick="sortTable()">Trier par id</button>
         <button onclick="location.reload()">Annuler le tri</button>

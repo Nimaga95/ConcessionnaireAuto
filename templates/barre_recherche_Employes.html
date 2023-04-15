@@ -23,10 +23,12 @@
     </style>
 <body>
    <nav class="nav-area">
-       <ul><li class="logo"> </li>
-           <li><a href="/">Acceuil</a></li>
+       <ul>
+           <li class="logo"> </li>
+           <li><a href="/">Accueil</a></li>
            <li><a href="/login">Login</a></li>
            <li><a href="/sign-up">Sign up</a></li>
+
 
            <li><a href="#">Fournisseurs</a>
                 <ul>
@@ -51,6 +53,7 @@
                     <li><a href="/search-auto">Automobile</a></li>
                 </ul>
            </li>
+           <li><a href="/appropos">À propos</a></li>
        </ul>
    </nav>
 
@@ -61,8 +64,8 @@
       <form action="/search-employe" method="POST">
          <div class="form-group">
 
-            <input type="text" class="form-control" id="queryAuto"
-                   name="queryAuto" required placeholder="tapez votre recherche ici">
+            <input type="text" class="form-control" id="queryEmploye"
+                   name="queryEmploye" required placeholder="tapez votre recherche ici">
          </div>
          <button type="submit" class="btn btn-primary">Rechercher</button>
       </form>

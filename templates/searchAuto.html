@@ -20,10 +20,12 @@
     </style>
 <body>
   <nav class="nav-area">
-       <ul><li class="logo"> </li>
-           <li><a href="/">Acceuil</a></li>
+       <ul>
+           <li class="logo"> </li>
+           <li><a href="/">Accueil</a></li>
            <li><a href="/login">Login</a></li>
            <li><a href="/sign-up">Sign up</a></li>
+
 
            <li><a href="#">Fournisseurs</a>
                 <ul>
@@ -48,13 +50,14 @@
                     <li><a href="/search-auto">Automobile</a></li>
                 </ul>
            </li>
+           <li><a href="/appropos">À propos</a></li>
        </ul>
    </nav>
 
     <div class="container mt-5">
-        <h1>Résultats de recherche pour "{{ query }}"</h1>
+        <h1>Résultats de recherche d'un Automobile pour <br> <b><i>"{{ query }}"</i></b></h1>
         <form action="{{ url_for('searchAuto') }}" method="post" class="search-form">
-            <input type="text" name="queryAuto" placeholder="Nouvellle recherche">
+            <input type="text" name="queryAuto" placeholder="Nouvelle recherche">
             <button type="submit">Rechercher </button>
         </form>
         <table>
