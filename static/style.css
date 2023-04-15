@@ -18,14 +18,14 @@ header {
 }
 
 /* Mise en forme du bouton de recherche */
-.search-form button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 0.5em 1em;
-    border-radius: 0.25em;
-    cursor: pointer;
-}
+/*.search-form button {*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    padding: 0.2em 0.5em;*/
+/*    border-radius: 0.25em;*/
+/*    cursor: pointer;*/
+/*}*/
 
 /* Mise en forme du tableau de résultats */
 table {
@@ -51,10 +51,10 @@ th {
     padding: 0 20px;
 }
 
-#search-form {
-    float: right;
-    margin: 10px 20px 0 0;
-}
+/*#search-form {*/
+/*    float: right;*/
+/*    margin: 10px 20px 0 0;*/
+/*}*/
 
 
 body {
@@ -217,9 +217,13 @@ body::before {
 
 
 .container {
-    width: 80%;
+    width: 950px;
     margin: 0 auto;
+
+
     padding-top: 50px;
+    max-width: 660px;
+    align-items: center;
 }
 
 .sign-up-form {
@@ -228,6 +232,7 @@ body::before {
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    text-align: center;
 
 
 }
@@ -269,9 +274,10 @@ input[type="password"] {
     font-size: 1em;
 }
 
+/*Button de container*/
 button[type="submit"] {
     display: block;
-    width: 100%;
+    width: 30%;
     padding: 10px;
     background-color: #646464;
     color: #fff;
@@ -283,6 +289,7 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: green;
+    width: 30%;
 }
 
 .nav-area:after {
@@ -339,7 +346,7 @@ button[type="submit"]:hover {
 }
 
 .nav-area ul ul ul li:hover a{
-    background: #34495a;
+    background: blue;
 }
 
 /*Table mis à jour*/
@@ -505,16 +512,24 @@ td a:hover {
 
 
 /*footer*/
-
 footer {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #f8f9fa;
-  padding: 10px;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
   text-align: left;
+  padding-top: 15px;
 }
+
+
+footer small {
+  font-size: 12px;
+}
+
+/*apropos*/
 
 .about-page {
   color: white;
@@ -524,3 +539,9 @@ footer {
 .container p {
   color: white;
 }
+
+/*barres input*/
+input[type="text"], input[type="email"], input[type="name"] ,input[type="password"] {
+  width: 70%;
+}
+
