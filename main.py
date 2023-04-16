@@ -1,10 +1,12 @@
-import mysql.connector.errors
 import pymysql
 import flask
 from flask import Flask, request, render_template, flash, redirect, session, url_for
 import pycountry
 
-# install pip pymy
+# pip install  pymy
+# pip install  pycountry
+# pip install  flask
+# pip installe
 
 app = flask.Flask(__name__)
 
@@ -276,7 +278,7 @@ def addFournisseurPieces():
 def searchFournisseurPieces():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    print(user_id)
+    #print(user_id)
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
@@ -312,6 +314,11 @@ def searchFournisseurPieces():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    user_id = session.get('user_id')
+    #print(user_id)
+    if 'user_id' in session:
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -354,6 +361,11 @@ def utilisateur():
 
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    user_id = session.get('user_id')
+    #print(user_id)
+    if 'user_id' in session:
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         email = request.form['email']
         firstName = request.form['firstName']
