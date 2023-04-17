@@ -1,7 +1,7 @@
 import pymysql
 import flask
 from flask import Flask, request, render_template, flash, redirect, session, url_for
-#import pycountry
+import pycountry
 
 # pip install  pymy
 # pip install  pycountry
@@ -410,7 +410,7 @@ def sign_up():
                 flash('Compte crée avec succées', category='success')
                 return redirect(url_for('login'))
 
-    return render_template("sign-up.html")
+    return render_template("sign-up.html",country=(list(pycountry.countries)))
 
 
 @app.route('/appropos', methods=['GET', 'POST'])
