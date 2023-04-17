@@ -26,7 +26,7 @@ faciliter la gestion d'une Concession Automobile.
 ##### 2. Installer les librairies du project en entrant ce commande dans le terminale de votre application Python:
 
 ```
-$ pip install -r requirements.txt
+ pip install -r requirements.txt
 ```
 
 #### 3. Utilisation

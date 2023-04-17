@@ -3,17 +3,13 @@ import flask
 from flask import Flask, request, render_template, flash, redirect, session, url_for
 import pycountry
 
-# pip install  pymy
-# pip install  pycountry
-# pip install  flask
-# pip installe
 
 app = flask.Flask(__name__)
 
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
+    password="Ni4157120162022",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
@@ -24,7 +20,6 @@ cursor = mydb.cursor()
 @app.route('/')
 def home():
     return render_template('home.html')
-
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -57,7 +52,6 @@ def search():
         return flask.render_template('searchPiece.html', results=results, query=query)
 
     return render_template('barre_recherche_Pieces.html')
-
 
 @app.route('/search-auto', methods=['GET', 'POST'])
 def searchAuto():
@@ -133,7 +127,6 @@ def searchEmploye():
 
     return render_template('barre_recherche_Employes.html')
 
-
 @app.route('/profil-employe/<int:id>')
 def profilEmploye(id):
     employe = getEmployeById(id)
@@ -142,7 +135,6 @@ def profilEmploye(id):
         return render_template('profil_Employes.html', employe=employe)
     else:
         return 'Employé non trouvé'
-
 
 def getEmployeById(id):
     # Requête SQL pour sélectionner les données dans la table "employes"
@@ -160,7 +152,7 @@ def getEmployeById(id):
 def addFournisseurAuto():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    print(user_id)
+
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
@@ -205,12 +197,10 @@ def addFournisseurAuto():
 
     return render_template('ajouterFournisseursAuto.html')
 
-
 @app.route('/search-fournisseur-auto', methods=['GET', 'POST'])
 def searchFournisseurAuto():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    print(user_id)
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
@@ -240,12 +230,10 @@ def searchFournisseurAuto():
 
     return render_template('trouverFournisseursAuto.html')
 
-
 @app.route('/add-fournisseur-pieces', methods=['GET', 'POST'])
 def addFournisseurPieces():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    print(user_id)
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
@@ -273,12 +261,11 @@ def addFournisseurPieces():
 
     return render_template('ajouterFournisseursPieces.html')
 
-
 @app.route('/search-fournisseur-pieces', methods=['GET', 'POST'])
 def searchFournisseurPieces():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    #print(user_id)
+
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
@@ -311,21 +298,18 @@ def searchFournisseurPieces():
 
     return render_template('trouverFournisseursPieces.html')
 
-
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     user_id = session.get('user_id')
-    #print(user_id)
     if 'user_id' in session:
         return redirect(url_for('home'))
 
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        # print(password)
 
         cursor = mydb.cursor()
-        sql = "SELECT passe,email from users WHERE email = %s"
+        sql = "SELECT passe,email from glo_2005_projet_concessionnairenouvelleauto.users WHERE email = %s"
         cursor.execute(sql, (email,))
         resultat = cursor.fetchone()
 
@@ -338,14 +322,11 @@ def login():
             if row == password:
 
                 session['user_id'] = email  # ajout du code de la session
-
-                # flash('Connexion reussie', category='success')
                 return redirect(url_for('utilisateur'))
             else:
                 flash("Identifiants incorrects. Veuillez réessayer.", category='error')
 
     return render_template('login.html')
-
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
@@ -353,16 +334,13 @@ def logout():
 
     return render_template('home.html')
 
-
 @app.route('/page_utilisateur', methods=['POST', 'GET'])
 def utilisateur():
     return render_template('page_utilisateur.html')
 
-
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     user_id = session.get('user_id')
-    #print(user_id)
     if 'user_id' in session:
         return redirect(url_for('home'))
 
@@ -376,9 +354,6 @@ def sign_up():
         phone = request.form['phone']
         password1 = request.form['password1']
         password2 = request.form['password2']
-
-        # print(email, firstName, Name, sex, country,password2,password2)
-        # print(email, firstName, password1, password2)
 
         if len(email) < 4:
             flash('Email invalide', category='error')
@@ -395,16 +370,15 @@ def sign_up():
         else:
             cursor = mydb.cursor()
 
-            sql = "SELECT * FROM users WHERE email = %s"
+            sql = "SELECT * FROM glo_2005_projet_concessionnairenouvelleauto.users WHERE email = %s"
             cursor.execute(sql, (email,))
             result = cursor.fetchone()
             if result:
                 # L'adresse e-mail existe déjà, renvoyer un message d'erreur
-                # Triger ici?
                 flash('Ce compte existe déjà. Veuillez vous connecter ou choisir un autre email.')
                 return redirect(url_for('login'))
             else:
-                sql = "INSERT INTO users (email, passe, first_name, last_name,  gender, birthdate, region, phone ) VALUES(%s, %s, %s,%s,%s,%s,%s,%s)"
+                sql = "INSERT INTO glo_2005_projet_concessionnairenouvelleauto.users (email, passe, first_name, last_name,  gender, birthdate, region, phone ) VALUES(%s, %s, %s,%s,%s,%s,%s,%s)"
                 cursor.execute(sql, (email, password1, firstName, Name, sex, Date, country, phone))
                 mydb.commit()
                 flash('Compte crée avec succées', category='success')
@@ -412,17 +386,15 @@ def sign_up():
 
     return render_template("sign-up.html",country=(list(pycountry.countries)))
 
-
 @app.route('/appropos', methods=['GET', 'POST'])
 def appropos():
     return render_template("a_propos.html")
 
 
-# for country in pycountry.countries:
-#  print(country.name)
+
 
 @app.route('/test', methods=['GET', 'POST'])
-def test():
+def teste():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
     # print(user_id)
@@ -431,6 +403,7 @@ def test():
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
 
     if flask.request.method == 'POST':
+
         query = flask.request.form['query']
         # print(query)
         # Récupérer la requête de l'utilisateur
@@ -440,43 +413,34 @@ def test():
         category = 0
         poid = 0
         date = 0
+
         piece = request.form.getlist('piece')
+        time = request.form.getlist('time')
+
         if "ID" in piece:
             id = 1
-            # print("id = 1")
-        # if "NOM" in piece:
-        #     nom = 1
-        #     print("nom = 1")
         if "PRIX" in piece:
             prix = 1
-            # print("prix = 1")
+
         if "CATEGORY" in piece:
             category = 1
-            # print("category = 1")
+
         if "POID" in piece:
             poid = 1
-            # print("poid = 1")
+
         if "DATE" in piece:
             date = 1
-            # print("date = 1")
 
-        time = request.form.getlist('time')
         if "last_week" in time:
             Time = "semaine"
-        #     cursor = mydb.cursor()
-        #     sql = "call statisticsPieces('semaine', 1, 1, 0, 1, 1, 1, 1);"
+
         if "last_month" in time:
             Time = "mois"
-        #     cursor = mydb.cursor()
-        #     sql = "call statisticsPieces('mois', 1, 1, 0, 1, 1, 1, 1);"
+
         if "last_year" in time:
             Time = "year"
-        #     cursor = mydb.cursor()
-        #     sql = "call statisticsPieces('year', 1, 1, 0, 1, 1, 1, 1);"
         if "all_date" in time:
             Time = "all"
-        #     cursor = mydb.cursor()
-        #     sql = "call statisticsPieces('all', 1, 1, 0, 1, 1, 1, 1);"
 
         sql = "call statisticsPieces(%s, %s, %s, 0, %s, %s, %s, %s);"
 
@@ -514,5 +478,4 @@ def test():
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important
-
     app.run(debug=True)

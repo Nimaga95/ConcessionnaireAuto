@@ -61,45 +61,58 @@
 
 <!--        <h1>Concessionnaire NouvelleAuto</h1>-->
 
-<div class="container mt-5">
+<div class="container mt-5 text-center">
     <h1 class="mb-4">Trouver une pièce en inventaire</h1>
     <form action="/test" method="POST">
         <div class="form-group">
-
-            <input type="text" class="form-control" id="query" name="query" required
-                   placeholder="tapez votre recherche ici ">
-
-            <input type="checkbox" name="piece" value="ID" style="display: inline-block;" checked> ID
-            <input type="checkbox" name="piece" value="CATEGORY" style="display: inline-block;"> Category
-            <input type="checkbox" name="piece" value="POID" style="display: inline-block;"> Poid
-            <input type="checkbox" name="piece" value="PRIX" style="display: inline-block;"> Prix
-            <input type="checkbox" name="piece" value="DATE" style="display: inline-block;"> Date
-            <div>
-
-                <input type="radio" class="radio" name="time" value="last_week" style="display: inline-block;"> Week
-                <input type="radio" class="radio" name="time" value="last_month" style="display: inline-block;"> Month
-                <input type="radio" class="radio" name="time" value="last_year" style="display: inline-block;"> Year
-                <input type="radio" class="radio" name="time" value="all_date" style="display: inline-block;" checked>
-                All
+            <input type="text" class="form-control1" id="query" name="query" required placeholder="tapez votre recherche ici ">
+            <div class="d-flex justify-content-center">
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="piece" value="ID" class="form-check-input" checked>
+                    <label class="form-check-label" for="piece">ID</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="piece" value="CATEGORY" class="form-check-input">
+                    <label class="form-check-label" for="piece">Category</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="piece" value="POID" class="form-check-input">
+                    <label class="form-check-label" for="piece">Poid</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="piece" value="PRIX" class="form-check-input">
+                    <label class="form-check-label" for="piece">Prix</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="piece" value="DATE" class="form-check-input">
+                    <label class="form-check-label" for="piece">Date</label>
+                </div>
             </div>
-
-
-            <!--   <select name="timeframe" class="form-control" required>-->
-            <!--       <option name="time" value="last_week">Last Week</option>-->
-            <!--       <option name="time" value="last_month">Last Month</option>-->
-            <!--       <option name="time" value="last_trimester">Last 3 Months</option>-->
-            <!--       <option name="time" value="last_semester">Last 6 Months</option>-->
-            <!--       <option name="time" value="last_year">Last Year</option>-->
-            <!--       <option name="time" value="all_date">All</option>-->
-            <!--   </select>-->
-
-            <div>
-                <input type="submit" value="Recherche">
+            <div class="mt-3 d-flex justify-content-center">
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="time" value="last_week" class="form-check-input">
+                    <label class="form-check-label" for="time">Week</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="time" value="last_month" class="form-check-input">
+                    <label class="form-check-label" for="time">Month</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="time" value="last_year" class="form-check-input">
+                    <label class="form-check-label" for="time">Year</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="time" value="all_date" class="form-check-input" checked>
+                    <label class="form-check-label" for="time">All</label>
+                </div>
+            </div>
+            <div class="mt-3">
+                <input type="submit" value="Recherche" class="btn btn-primary">
             </div>
         </div>
-
     </form>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
