@@ -413,7 +413,7 @@ BEGIN
     DECLARE now_date, last_week, last_month, last_trimester, last_semester, last_year, all_date DATE;
     SET now_date := UTC_DATE(), last_week := DATE_SUB(now_date, INTERVAL 7 DAY), last_month := DATE_SUB(now_date, INTERVAL 1 MONTH),
         last_trimester := DATE_SUB(now_date, INTERVAL 3 MONTH), last_semester := DATE_SUB(now_date, INTERVAL 6 MONTH),
-        last_year := DATE_SUB(now_date, INTERVAL 1 YEAR), all_date := DATE_SUB(now_date, INTERVAL 6 YEAR);
+        last_year := DATE_SUB(now_date, INTERVAL 1 YEAR), all_date := DATE_SUB(now_date, INTERVAL 10 YEAR);
 
     -- Drops the temporary "date" table if it exists, then creates it as a copy of the "Pieces" table.
     DROP TEMPORARY TABLE IF EXISTS date;
@@ -425,7 +425,8 @@ BEGIN
     FROM Pieces P
     WHERE (timeframe = 'semaine' AND P.datePiece BETWEEN last_week AND now_date)
        OR (timeframe = 'mois' AND P.datePiece BETWEEN last_month AND now_date)
-       OR (timeframe = 'year' AND P.datePiece BETWEEN last_year AND now_date);
+       OR (timeframe = 'year' AND P.datePiece BETWEEN last_year AND now_date)
+       OR (timeframe = 'all' AND P.datePiece BETWEEN all_date AND now_date);
 
     -- Drops columns from the "date" table based on the input parameters.
     IF VoirIDPiece = 0 THEN ALTER TABLE date
@@ -458,7 +459,7 @@ DELIMITER ;
 
 #test with statisticsPieces
 #
-# call statisticsPieces('mois', 1, 0, 0, 1, 0, 0, 0);
+call statisticsPieces('all', 1, 1, 0, 1, 1, 1, 1);
 # call statisticsPieces('mois', 0, 0, 0, 0, 0, 0, 0);
 # call statisticsPieces('year', 0, 0, 0, 0, 0, 0, 0);
 

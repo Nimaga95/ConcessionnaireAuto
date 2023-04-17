@@ -1,7 +1,7 @@
 import pymysql
 import flask
 from flask import Flask, request, render_template, flash, redirect, session, url_for
-import pycountry
+#import pycountry
 
 # pip install  pymy
 # pip install  pycountry
@@ -13,7 +13,7 @@ app = flask.Flask(__name__)
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="Ni4157120162022",  # à remplacer par le password de votre ordinateur pour les tests
+    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
@@ -410,7 +410,7 @@ def sign_up():
                 flash('Compte crée avec succées', category='success')
                 return redirect(url_for('login'))
 
-    return render_template("sign-up.html", country=(list(pycountry.countries)))
+    return render_template("sign-up.html")
 
 
 @app.route('/appropos', methods=['GET', 'POST'])
@@ -420,6 +420,66 @@ def appropos():
 
 # for country in pycountry.countries:
 #  print(country.name)
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    print(user_id)
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
+    if flask.request.method == 'POST':
+        query = flask.request.form['query']
+        print(query)
+        # Récupérer la requête de l'utilisateur
+        id = 0
+        nom = 0
+        prix = 0
+        category = 0
+        poid = 0
+        compteur = 0
+        piece = request.form.getlist('piece')
+        if "ID" in piece:
+            id = 1
+            print("id = 1")
+        if "NOM" in piece:
+            nom = 1
+            print("nom = 1")
+        if "PRIX" in piece:
+            prix = 1
+            print("prix = 1")
+        if "CATEGORY" in piece:
+            category = 1
+            print("category = 1")
+        if "POID" in piece:
+            poid = 1
+            print("poid = 1")
+
+        time = request.form.getlist('time')
+        if "last_week" in time:
+            cursor = mydb.cursor()
+            sql = "call statisticsPieces('semaine', 1, 1, 0, 1, 1, 1, 1);"
+        if "last_month" in time:
+            cursor = mydb.cursor()
+            sql = "call statisticsPieces('mois', 1, 1, 0, 1, 1, 1, 1);"
+        if "last_year" in time:
+            cursor = mydb.cursor()
+            sql = "call statisticsPieces('year', 1, 1, 0, 1, 1, 1, 1);"
+        if "all_date" in time:
+            cursor = mydb.cursor()
+            sql = "call statisticsPieces('all', 1, 1, 0, 1, 1, 1, 1);"
+
+        #sql = "call statisticsPieces('mois', %s, %s, 0, %s, %s, %s, 1);"
+
+        #cursor.execute(sql, (id, nom, prix, category, poid,))
+        cursor.execute(sql)
+        results = cursor.fetchall()
+
+        return flask.render_template('test.html', results=results, query=query)
+
+    return render_template('barre_test.html')
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important
