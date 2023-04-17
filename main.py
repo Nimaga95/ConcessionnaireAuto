@@ -425,59 +425,90 @@ def appropos():
 def test():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    print(user_id)
+    # print(user_id)
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
 
     if flask.request.method == 'POST':
         query = flask.request.form['query']
-        print(query)
+        # print(query)
         # Récupérer la requête de l'utilisateur
         id = 0
-        nom = 0
+        nom = 1
         prix = 0
         category = 0
         poid = 0
-        compteur = 0
+        date = 0
         piece = request.form.getlist('piece')
         if "ID" in piece:
             id = 1
-            print("id = 1")
-        if "NOM" in piece:
-            nom = 1
-            print("nom = 1")
+            # print("id = 1")
+        # if "NOM" in piece:
+        #     nom = 1
+        #     print("nom = 1")
         if "PRIX" in piece:
             prix = 1
-            print("prix = 1")
+            # print("prix = 1")
         if "CATEGORY" in piece:
             category = 1
-            print("category = 1")
+            # print("category = 1")
         if "POID" in piece:
             poid = 1
-            print("poid = 1")
+            # print("poid = 1")
+        if "DATE" in piece:
+            date = 1
+            # print("date = 1")
 
         time = request.form.getlist('time')
         if "last_week" in time:
-            cursor = mydb.cursor()
-            sql = "call statisticsPieces('semaine', 1, 1, 0, 1, 1, 1, 1);"
+            Time = "semaine"
+        #     cursor = mydb.cursor()
+        #     sql = "call statisticsPieces('semaine', 1, 1, 0, 1, 1, 1, 1);"
         if "last_month" in time:
-            cursor = mydb.cursor()
-            sql = "call statisticsPieces('mois', 1, 1, 0, 1, 1, 1, 1);"
+            Time = "mois"
+        #     cursor = mydb.cursor()
+        #     sql = "call statisticsPieces('mois', 1, 1, 0, 1, 1, 1, 1);"
         if "last_year" in time:
-            cursor = mydb.cursor()
-            sql = "call statisticsPieces('year', 1, 1, 0, 1, 1, 1, 1);"
+            Time = "year"
+        #     cursor = mydb.cursor()
+        #     sql = "call statisticsPieces('year', 1, 1, 0, 1, 1, 1, 1);"
         if "all_date" in time:
-            cursor = mydb.cursor()
-            sql = "call statisticsPieces('all', 1, 1, 0, 1, 1, 1, 1);"
+            Time = "all"
+        #     cursor = mydb.cursor()
+        #     sql = "call statisticsPieces('all', 1, 1, 0, 1, 1, 1, 1);"
 
-        #sql = "call statisticsPieces('mois', %s, %s, 0, %s, %s, %s, 1);"
+        sql = "call statisticsPieces(%s, %s, %s, 0, %s, %s, %s, %s);"
 
-        #cursor.execute(sql, (id, nom, prix, category, poid,))
-        cursor.execute(sql)
-        results = cursor.fetchall()
+        cursor.execute(sql, (Time, id, nom, prix, category, poid, date,))
+        # cursor.execute(sql)
 
-        return flask.render_template('test.html', results=results, query=query)
+
+
+
+
+
+        headers = [col[0] for col in cursor.description]
+        #print(headers)
+        #results = cursor.fetchall()
+        data = []
+        for row in cursor.fetchall():
+            row_data = {}
+            for i, value in enumerate(row):
+                if value:
+                    row_data[headers[i]] = value
+            if query in row_data.values():
+                data.append(row_data)
+            # print(row_data)
+        #print(data)
+
+
+
+
+
+
+
+        return flask.render_template('test.html', data=data, query=query, headers=headers)
 
     return render_template('barre_test.html')
 
