@@ -4,7 +4,7 @@ import csv
 connection = pymysql.connect(
     host="localhost",
     user="root",
-    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
+    password="votremotdepasse",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )

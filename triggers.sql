@@ -1,5 +1,5 @@
 
-#gaghette pour s'assurer de ne pas commander une piece si il y en a au moins 3 encore en stock
+#gachette pour s'assurer de ne pas commander une piece si il y en a au moins 3 encore en stock
 DROP TRIGGER IF EXISTS MaximumDePieces;
 DELIMITER //
 CREATE TRIGGER MaximumDePieces

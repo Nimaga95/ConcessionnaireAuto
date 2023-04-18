@@ -1,6 +1,6 @@
 import pymysql
 import flask
-from flask import Flask, request, render_template, flash, redirect, session, url_for
+from flask import request, render_template, flash, redirect, session, url_for
 import pycountry
 
 
@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
+    password="votremotdepasse",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
@@ -76,7 +76,6 @@ def searchEmploye():
     if flask.request.method == 'POST':
         # Récupérer la requête de l'utilisateur
         queryEmploye = flask.request.form['queryEmploye']
-        # print(queryAuto)
 
         # Requête SQL pour sélectionner les données dans la table "articles"
         cursor = mydb.cursor()
@@ -115,8 +114,6 @@ def getEmployeById(id):
     cursor.execute(sql, (id,))
     resultsEmploye = cursor.fetchone()
 
-    # print(resultsEmploye)
-
     return resultsEmploye
 
 
@@ -137,8 +134,6 @@ def addFournisseurAuto():
         city = request.form['city']
         state = request.form['state']
         country = request.form['country']
-
-        # print(name, firstName, password1, password2)
 
         if len(name) < 2:
             flash('Nom invalide', category='error')
@@ -222,6 +217,7 @@ def searchFournisseurAuto():
 
     return render_template('trouverFournisseursAuto.html')
 
+
 @app.route('/add-fournisseur-pieces', methods=['GET', 'POST'])
 def addFournisseurPieces():
     # Vérifier si l'utilisateur est connecté
@@ -238,7 +234,6 @@ def addFournisseurPieces():
         city = request.form["city"]
         state = request.form["state"]
         country = request.form["country"]
-
 
         if len(name) < 2:
             flash('Nom invalide', category='error')
@@ -291,6 +286,7 @@ def addFournisseurPieces():
 
     return render_template('ajouterFournisseursPieces.html', country=(list(pycountry.countries)))
 
+
 @app.route('/search-fournisseur-pieces', methods=['GET', 'POST'])
 def searchFournisseurPieces():
     # Vérifier si l'utilisateur est connecté
@@ -328,6 +324,7 @@ def searchFournisseurPieces():
 
     return render_template('trouverFournisseursPieces.html')
 
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     user_id = session.get('user_id')
@@ -356,15 +353,18 @@ def login():
 
     return render_template('login.html')
 
+
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     session.pop('user_id', None)
 
     return render_template('home.html')
 
+
 @app.route('/page_utilisateur', methods=['POST', 'GET'])
 def utilisateur():
     return render_template('page_utilisateur.html')
+
 
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -411,18 +411,16 @@ def sign_up():
 
     return render_template("sign-up.html", country=(list(pycountry.countries)))
 
+
 @app.route('/appropos', methods=['GET', 'POST'])
 def appropos():
     return render_template("a_propos.html")
-
-
 
 
 @app.route('/searchPiece', methods=['GET', 'POST'])
 def searchPiece():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    # print(user_id)
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
@@ -430,7 +428,6 @@ def searchPiece():
     if flask.request.method == 'POST':
 
         query = flask.request.form['query']
-        # print(query)
         # Récupérer la requête de l'utilisateur
         id = 0
         nom = 1
@@ -474,11 +471,8 @@ def searchPiece():
         sql = "call statisticsPieces(%s, %s, %s, %s, %s, %s, %s, %s);"
 
         cursor.execute(sql, (Time, id, nom, description, prix, category,  poid, date,))
-        # cursor.execute(sql)
 
         headers = [col[0] for col in cursor.description]
-        #print(headers)
-        #results = cursor.fetchall()
         data = []
         for row in cursor.fetchall():
             row_data = {}
@@ -487,8 +481,6 @@ def searchPiece():
                     row_data[headers[i]] = value
             if query in row_data.values():
                 data.append(row_data)
-            # print(row_data)
-        #print(data)
 
         return flask.render_template('searchPiece.html', data=data, query=query, headers=headers)
 
@@ -499,7 +491,6 @@ def searchPiece():
 def searchLavageAuto():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
-    # print(user_id)
     if 'user_id' not in session:
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
@@ -507,7 +498,6 @@ def searchLavageAuto():
     if flask.request.method == 'POST':
 
         query = flask.request.form['query']
-        # print(query)
         # Récupérer la requête de l'utilisateur
         id = 0
         type = 1
@@ -554,11 +544,8 @@ def searchLavageAuto():
         sql = "call statisticsLavageAuto(%s, %s, %s, %s, %s, %s, %s, %s);"
 
         cursor.execute(sql, (Time, id, type, prix, niv, id_client, id_employe, date))
-        # cursor.execute(sql)
 
         headers = [col[0] for col in cursor.description]
-        #print(headers)
-        #results = cursor.fetchall()
         data = []
         for row in cursor.fetchall():
             row_data = {}
@@ -567,12 +554,11 @@ def searchLavageAuto():
                     row_data[headers[i]] = value
             if query in row_data.values():
                 data.append(row_data)
-            # print(row_data)
-        #print(data)
 
         return flask.render_template('searchLavageAuto.html', data=data, query=query, headers=headers)
 
     return render_template('barre_searchLavageAuto.html')
+
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important

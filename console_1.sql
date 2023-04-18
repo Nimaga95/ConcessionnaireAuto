@@ -2,20 +2,6 @@ drop database IF EXISTS glo_2005_Projet_ConcessionnaireNouvelleAuto; #comme cela
 
 CREATE DATABASE IF NOT EXISTS glo_2005_Projet_ConcessionnaireNouvelleAuto;
 
-#select * from Automobile; ## pour tester la méthode import_Automobile_from_csv()
-#select * from Client; ## pour tester la méthode import_Client_from_csv()
-#select * from Concessionnaire; ## pour tester la méthode import_Concessionnaire_from_csv
-#select * from Employe; ## pour tester la méthode import_Employe_from_csv()
-#select * from Pieces; ## pour tester la méthode import_Pieces_from_csv()
-#select * from fourniAutomobiles; ## pour tester la méthode import_FournisseurAutomobiles_from_csv()
-#select * from fourniPieces; ## pour tester la méthode import_FournisseursPieces_from_csv()
-#select * from FournisseursAutomobiles; ## pour tester la méthode import_FournisseurAutomobiles_from_csv()
-#select * from FournisseursPieces; ## pour tester la méthode import_FournisseursPieces_from_csv()
-#select * from LavageAuto; ## pour tester la méthode import_LavageAuto_from_csv()
-#select * from Vente; ## pour tester la méthode import_Vente_from_csv()
-#select * from Reparation; ## pour tester la méthode import_Reparation_from_csv()
-#select * from Location; ## pour tester la méthode import_Location_from_csv()
-
 USE glo_2005_Projet_ConcessionnaireNouvelleAuto;
 
 CREATE TABLE IF NOT EXISTS Users
@@ -31,7 +17,6 @@ CREATE TABLE IF NOT EXISTS Users
     phone      varchar(25)                      NOT NULL,
     primary key (id)
 );
-
 
 CREATE TABLE IF NOT EXISTS Concessionnaire
 (
@@ -55,7 +40,7 @@ CREATE TABLE IF NOT EXISTS Employe
     ageEmploye     integer,
     numCellEmploye varchar(15),
     numPoste       integer,
-    titreEmploi    varchar(30),#enum ('Laveur', 'Vendeur', 'Loueur', 'Mécanicien','Directeur des ventes', 'Directeur Marketing', 'Secrétaire', 'Concierge'),
+    titreEmploi    varchar(30),
     salaireAnnuel  integer,
     anciennete     integer,
     PRIMARY KEY (idEmploye)
@@ -66,7 +51,7 @@ ALTER TABLE Employe
 
 CREATE TABLE IF NOT EXISTS Client
 (
-    idClient           integer NOT NULL AUTO_INCREMENT, #add autoindent perhaps
+    idClient           integer NOT NULL AUTO_INCREMENT,
     prenomClient       varchar(100),
     nomClient          varchar(100),
     numTelephoneClient varchar(15),
@@ -96,7 +81,6 @@ CREATE TABLE IF NOT EXISTS Automobile
     PRIMARY KEY (niv)
 );
 
-
 CREATE TABLE IF NOT EXISTS Pieces
 (
     idPiece          integer NOT NULL,
@@ -121,7 +105,7 @@ CREATE TABLE IF NOT EXISTS LavageAuto
     PRIMARY KEY (idLavage),
     FOREIGN KEY (idClient)
         REFERENCES Client (idClient)
-        ON UPDATE CASCADE #on veut que le nom change partout
+        ON UPDATE CASCADE
         ON DELETE NO ACTION,
     FOREIGN KEY (idEmploye)
         REFERENCES Employe (idEmploye)
@@ -141,7 +125,7 @@ CREATE TABLE IF NOT EXISTS Vente
     niv              varchar(17),
     idClient         integer,
     idEmploye        integer,
-    dureeFinancement integer, # remplacer durée financement par prix total de l'auto
+    dureeFinancement integer,
     tauxInteret      double,
     dateVente        date,
     PRIMARY KEY (idVente),
@@ -198,7 +182,7 @@ CREATE TABLE IF NOT EXISTS Location
     niv           varchar(17),
     idClient      integer,
     idEmploye     integer,
-    dureeLocation integer, #mois ## rajouter colonne prix par mois
+    dureeLocation integer,
     tauxInteret   double,
     dateLocation  date,
     PRIMARY KEY (idLocation),
@@ -217,7 +201,6 @@ CREATE TABLE IF NOT EXISTS Location
 );
 ALTER TABLE Location
     AUTO_INCREMENT = 60000;
-
 
 CREATE TABLE IF NOT EXISTS FournisseursPieces
 (
@@ -249,7 +232,6 @@ CREATE TABLE IF NOT EXISTS FournisseursAutomobiles
 ALTER TABLE FournisseursAutomobiles
     AUTO_INCREMENT = 80000;
 
-
 CREATE TABLE IF NOT EXISTS FourniPieces
 (
     idFournisseursPieces int,
@@ -278,9 +260,7 @@ CREATE TABLE IF NOT EXISTS FourniAutomobiles
         ON DELETE NO ACTION
 );
 
-
-
-#intercept un insert d'un numero de telephone identique dans le tableau FournisseursAutomobiles
+#intercepte un insert d'un numéro de telephone identique dans le tableau FournisseursAutomobiles
 DELIMITER //
 CREATE TRIGGER FournisseursAutomobilesDup
     BEFORE INSERT ON FournisseursAutomobiles
@@ -294,11 +274,8 @@ CREATE TRIGGER FournisseursAutomobilesDup
             SET MESSAGE_TEXT = 'Vous avez deja un fournisseur avec ce numero de telephone';
         end if ;
     end //
-#test
-# insert into fournisseursautomobiles (nomFournisseursVehicules, adresseFournisseursVehicules, numTelephoneFournisseursVehicules, adresseCourrielFournisseursVehicules, villeFournisseursVehicules, provinceEtatFournisseursVehicules, paysFournisseursVehicules) VALUES ('Noé Dubois','21 Rue des Cerisiers','819-555-0492','noe.dubois@business.com','Rouyn-Noranda','Québec','Canada');
 
-
-#intercept un insert d'un numero de telephone identique dans le tableau FournisseursPieces
+#intercepte un insert d'un numéro de telephone identique dans le tableau FournisseursPieces
 DELIMITER //
 CREATE TRIGGER FournisseursPiecesDup
     BEFORE INSERT ON FournisseursPieces
@@ -312,6 +289,188 @@ CREATE TRIGGER FournisseursPiecesDup
             SET MESSAGE_TEXT = 'Vous avez deja un fournisseur avec ce numero de telephone';
         end if ;
     end //
-#test
-# INSERT INTO FournisseursPieces      (nomFournisseursPieces, adresseFournisseursPieces, numTelephoneFournisseursPieces, adresseCourrielFournisseursPieces, villeFournisseursPieces, provinceEtatFournisseursPieces, paysFournisseursPieces) VALUES ('Sophie ','4848 Rue Sherbrooke','819-555-5678','sophie.thibault@business.com','Sherbrooke','Québec','Canada');
 
+#gachette pour s'assurer de ne pas commander une piece si il y en a au moins 3 encore en stock
+DROP TRIGGER IF EXISTS MaximumDePieces;
+DELIMITER //
+CREATE TRIGGER MaximumDePieces
+    BEFORE INSERT ON Pieces
+    FOR EACH ROW
+    BEGIN
+        DECLARE nmbDePiece INTEGER;
+        IF ((SELECT COUNT(*) FROM Pieces  WHERE nomPiece = NEW.nomPiece) >=3)
+        THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Nous avons déjà cette pieces au moins 3 fois.';
+        end if ;
+    end //
+
+-- Cette procédure est utile uniquement pour définir nos variables de temps telles
+-- qu'elles seront utilisées dans la plupart de nos procédures suivantes.
+DROP PROCEDURE IF EXISTS set_timeframe_variables;
+DELIMITER //
+CREATE PROCEDURE set_timeframe_variables()
+BEGIN
+
+    SET @now_date := UTC_DATE(), @last_week := DATE_SUB(@now_date, INTERVAL 7 DAY), @last_month := DATE_SUB(@now_date, INTERVAL 1 MONTH),
+        @last_trimester := DATE_SUB(@now_date, INTERVAL 3 MONTH), @last_semester := DATE_SUB(@now_date, INTERVAL 6 MONTH),
+        @last_year := DATE_SUB(@now_date, INTERVAL 1 YEAR), @all_date := DATE_SUB(@now_date, INTERVAL 6 YEAR);
+END//
+DELIMITER ;
+
+
+#PROCEDURE 1 STATISTICSPIECES
+DROP PROCEDURE IF EXISTS statisticsPieces;
+DELIMITER //
+
+CREATE PROCEDURE statisticsPieces(IN timeframe VARCHAR(10), IN VoirIDPiece integer(1), IN VoirNomPiece integer(1),
+                             IN VoirDescription integer(1), IN VoirPrix integer(1), IN Voircategorie integer(1),
+                             IN VoirpoidsPiece integer(1), IN VoirdatePiece integer(1))
+BEGIN
+
+    call set_timeframe_variables();
+
+
+    DROP TEMPORARY TABLE IF EXISTS date;
+    CREATE TEMPORARY TABLE IF NOT EXISTS date LIKE Pieces;
+
+    INSERT INTO date
+    SELECT *
+    FROM Pieces P
+    WHERE (timeframe = 'semaine' AND P.datePiece BETWEEN @last_week AND @now_date)
+       OR (timeframe = 'mois' AND P.datePiece BETWEEN @last_month AND @now_date)
+       OR (timeframe = 'trimestre' AND P.datePiece BETWEEN @last_trimester AND @now_date)
+       OR (timeframe = 'semestre' AND P.datePiece BETWEEN @last_semester AND @now_date)
+       OR (timeframe = 'year' AND P.datePiece BETWEEN @last_year AND @now_date)
+       OR (timeframe = 'all' AND P.datePiece BETWEEN @all_date AND @now_date);
+
+    IF VoirIDPiece = 0 THEN ALTER TABLE date DROP COLUMN idPiece; END IF;
+    IF VoirNomPiece = 0 THEN ALTER TABLE date DROP COLUMN nomPiece; END IF;
+    IF Voircategorie = 0 THEN ALTER TABLE date DROP COLUMN categorie; END IF;
+    IF VoirpoidsPiece = 0 THEN ALTER TABLE date DROP COLUMN poidsPiece; END IF;
+    IF VoirDescription = 0 THEN ALTER TABLE date DROP COLUMN descriptionPiece; END IF;
+    IF VoirPrix = 0 THEN ALTER TABLE date DROP COLUMN prixPiece; END IF;
+    IF VoirdatePiece = 0 THEN ALTER TABLE date DROP COLUMN datePiece; END IF;
+
+    SELECT * FROM date;
+
+END //
+DELIMITER ;
+
+#PROCEDURE 2 STATISTICSAUTOMOBILES
+DROP PROCEDURE IF EXISTS statisticsAutomobiles;
+DELIMITER //
+
+CREATE PROCEDURE statisticsAutomobiles(IN timeframe VARCHAR(10), IN voirniv integer(1), IN voirmarque integer(1),
+                             IN voirmodele integer(1), IN voirannee integer(1), IN voircouleur integer(1),
+                             IN voirodometre integer(1), IN voirnbPlaces integer(1), IN voirprixAuto integer(1),
+                             IN voirlocationVente integer(1), IN voirsousCategorie integer(1), IN voirpoidsAuto integer(1),
+                             IN voirdateAuto integer(1))
+BEGIN
+
+    call set_timeframe_variables();
+
+    DROP TEMPORARY TABLE IF EXISTS date;
+    CREATE TEMPORARY TABLE IF NOT EXISTS date LIKE automobile;
+
+    INSERT INTO date
+    SELECT *
+    FROM Automobile A
+    WHERE (timeframe = 'semaine' AND A.dateAuto BETWEEN @last_week AND @now_date)
+       OR (timeframe = 'mois' AND A.dateAuto BETWEEN @last_month AND @now_date)
+       OR (timeframe = 'trimestre' AND A.dateAuto BETWEEN @last_trimester AND @now_date)
+       OR (timeframe = 'semestre' AND A.dateAuto BETWEEN @last_semester AND @now_date)
+       OR (timeframe = 'year' AND A.dateAuto BETWEEN @last_year AND @now_date)
+       OR (timeframe = 'all' AND A.dateAuto BETWEEN @all_date AND @now_date);
+
+    IF voirniv = 0 THEN ALTER TABLE date DROP COLUMN niv; END IF;
+    IF voirmarque = 0 THEN ALTER TABLE date DROP COLUMN marque; END IF;
+    IF voirmodele = 0 THEN ALTER TABLE date DROP COLUMN modele; END IF;
+    IF voirannee = 0 THEN ALTER TABLE date DROP COLUMN annee; END IF;
+    IF voircouleur = 0 THEN ALTER TABLE date DROP COLUMN couleur; END IF;
+    IF voirodometre = 0 THEN ALTER TABLE date DROP COLUMN odometre; END IF;
+    IF voirnbPlaces = 0 THEN ALTER TABLE date DROP COLUMN nbPlaces; END IF;
+    IF voirprixAuto = 0 THEN ALTER TABLE date DROP COLUMN prixAuto; END IF;
+    IF voirlocationVente = 0 THEN ALTER TABLE date DROP COLUMN locationVente; END IF;
+    IF voirsousCategorie = 0 THEN ALTER TABLE date DROP COLUMN sousCategorie; END IF;
+    IF voirpoidsAuto = 0 THEN ALTER TABLE date DROP COLUMN poidsAuto; END IF;
+    IF voirdateAuto = 0 THEN ALTER TABLE date DROP COLUMN dateAuto; END IF;
+
+    SELECT * FROM date;
+
+END //
+DELIMITER ;
+
+#PROCEDURE 3 STATISTICSLAVAGEAUTO
+DROP PROCEDURE IF EXISTS statisticsLavageAuto;
+DELIMITER //
+
+CREATE PROCEDURE statisticsLavageAuto(IN timeframe VARCHAR(10), IN VoiridLavage integer(1), IN VoirtypeLavage integer(1),
+                             IN VoirprixLavage integer(1), IN Voirniv integer(1), IN VoiridClient integer(1),
+                             IN VoiridEmploye integer(1), IN VoirdateLavage integer(1))
+BEGIN
+    call set_timeframe_variables();
+
+    DROP TEMPORARY TABLE IF EXISTS date;
+    CREATE TEMPORARY TABLE IF NOT EXISTS date LIKE lavageauto;
+
+    INSERT INTO date
+    SELECT *
+    FROM lavageauto L
+    WHERE (timeframe = 'semaine' AND L.dateLavage BETWEEN @last_week AND @now_date)
+       OR (timeframe = 'mois' AND L.dateLavage BETWEEN @last_month AND @now_date)
+       OR (timeframe = 'trimestre' AND L.dateLavage BETWEEN @last_trimester AND @now_date)
+       OR (timeframe = 'semestre' AND L.dateLavage BETWEEN @last_semester AND @now_date)
+       OR (timeframe = 'year' AND L.dateLavage BETWEEN @last_year AND @now_date)
+       OR (timeframe = 'all' AND L.dateLavage BETWEEN @all_date AND @now_date);
+
+    IF VoiridLavage = 0 THEN ALTER TABLE date DROP COLUMN idLavage; END IF;
+    IF VoirtypeLavage = 0 THEN ALTER TABLE date DROP COLUMN typeLavage; END IF;
+    IF VoirprixLavage = 0 THEN ALTER TABLE date DROP COLUMN prixLavage; END IF;
+    IF Voirniv = 0 THEN ALTER TABLE date DROP COLUMN niv; END IF;
+    IF VoiridClient = 0 THEN ALTER TABLE date DROP COLUMN idClient; END IF;
+    IF VoiridEmploye = 0 THEN ALTER TABLE date DROP COLUMN idEmploye; END IF;
+    IF VoirdateLavage = 0 THEN ALTER TABLE date DROP COLUMN dateLavage; END IF;
+
+    SELECT * FROM date;
+
+    END //
+DELIMITER ;
+
+#PROCEDURE 4 STATISTICSREPARATION
+DROP PROCEDURE IF EXISTS statisticsReparation;
+DELIMITER //
+
+CREATE PROCEDURE statisticsReparation(IN timeframe VARCHAR(10), IN voiridReparation integer(1), IN voirniv integer(1),
+                             IN voiridClient integer(1), IN voiridEmploye integer(1), IN voiridPiece integer(1),
+                             IN voirtempsDeTravail integer(1), IN voircoutReparation integer(1), IN voirdateReparation integer(1))
+BEGIN
+
+    call set_timeframe_variables();
+
+    DROP TEMPORARY TABLE IF EXISTS date;
+    CREATE TEMPORARY TABLE IF NOT EXISTS date LIKE reparation;
+
+    INSERT INTO date
+    SELECT *
+    FROM reparation R
+    WHERE (timeframe = 'semaine' AND R.dateReparation BETWEEN @last_week AND @now_date)
+       OR (timeframe = 'mois' AND R.dateReparation BETWEEN @last_month AND @now_date)
+       OR (timeframe = 'trimestre' AND R.dateReparation BETWEEN @last_trimester AND @now_date)
+       OR (timeframe = 'semestre' AND R.dateReparation BETWEEN @last_semester AND @now_date)
+       OR (timeframe = 'year' AND R.dateReparation BETWEEN @last_year AND @now_date)
+       OR (timeframe = 'all' AND R.dateReparation BETWEEN @all_date AND @now_date);
+
+    IF voiridReparation = 0 THEN ALTER TABLE date DROP COLUMN idReparation; END IF;
+    IF voirniv = 0 THEN ALTER TABLE date DROP COLUMN niv; END IF;
+    IF voiridClient = 0 THEN ALTER TABLE date DROP COLUMN idClient; END IF;
+    IF voiridEmploye = 0 THEN ALTER TABLE date DROP COLUMN idEmploye; END IF;
+    IF voiridPiece = 0 THEN ALTER TABLE date DROP COLUMN idPiece; END IF;
+    IF voirtempsDeTravail = 0 THEN ALTER TABLE date DROP COLUMN tempsDeTravail; END IF;
+    IF voircoutReparation = 0 THEN ALTER TABLE date DROP COLUMN coutReparation; END IF;
+    IF voirdateReparation = 0 THEN ALTER TABLE date DROP COLUMN dateReparation; END IF;
+
+    SELECT * FROM date;
+
+    END //
+DELIMITER ;
