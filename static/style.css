@@ -547,6 +547,14 @@ input[type="text"], input[type="email"], input[type="name"] ,input[type="passwor
   width: 70%;
 }
 
+.error {
+    color: red;
+}
+
+.success {
+    color: #00ff13;
+}
+
 
 .logo img {
 	height: 50px;

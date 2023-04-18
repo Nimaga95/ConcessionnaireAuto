@@ -26,8 +26,8 @@
        <ul>
            <li class="logo"> </li>
            <li><a href="/">Accueil</a></li>
-           <li><a href="/login">Login</a></li>
-           <li><a href="/sign-up">Sign up</a></li>
+<!--           <li><a href="/login">Login</a></li>-->
+<!--           <li><a href="/sign-up">Sign up</a></li>-->
 
 
            <li><a href="#">Fournisseurs</a>
@@ -96,7 +96,7 @@
          </div>
          <div class="form-group">
             <label>Adresse</label>
-            <input type="adress" name="adress" class="form-control" placeholder="adresse du fournisseur ici" required>
+            <input type="address" name="address" class="form-control" placeholder="adresse du fournisseur ici" required>
          </div>
          <div class="form-group">
             <label>Numéro de téléphone</label>
@@ -116,9 +116,15 @@
          </div>
          <div class="form-group">
             <label>Pays</label>
-            <input type="country" name="country" class="form-control" placeholder="pays du fournisseur ici" required>
+            <select class="form-control" name="country" required>
+                <option value="" selected disabled hidden>Sélectionnez un pays</option>
+                    {% for country in country %}
+                <option value="{{ country.name }}">{{ country.name }}</option>
+                    {% endfor %}
+            </select>
          </div>
-         <button class="btn btn-primary btn-small"  type="submit" class="btn btn-primary">S'inscrire</button>
+         <button class="btn btn-primary btn-small" onclick="addFournisseurAuto()"
+                 type="submit" class="btn btn-primary">Ajouter</button>
       </form>
    </div>
 

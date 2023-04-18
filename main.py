@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
+    password="teddybear",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
@@ -159,7 +159,7 @@ def addFournisseurAuto():
 
     if flask.request.method == 'POST':
         name = request.form['name']
-        adress = request.form['adress']
+        address = request.form['address']
         tel = request.form['tel']
         email = request.form['email']
         city = request.form['city']
@@ -170,32 +170,36 @@ def addFournisseurAuto():
 
         if len(name) < 2:
             flash('Nom invalide', category='error')
+            return redirect(url_for('addFournisseurAuto'))
         if len(tel) < 10:
             flash('Téléphone invalide', category='error')
+            return redirect(url_for('addFournisseurAuto'))
         if len(email) < 4:
             flash('E-Mail invalide.', category='error')
+            return redirect(url_for('addFournisseurAuto'))
         if len(city) < 2:
             flash('Ville invalide', category='error')
+            return redirect(url_for('addFournisseurAuto'))
         if len(state) < 2:
             flash('État / Province invalide', category='error')
+            return redirect(url_for('addFournisseurAuto'))
         if len(country) < 2:
             flash('Pays invalide', category='error')
-        if len(name) > 2:
-            flash('Fournisseur ajouté', category='success')
+            return redirect(url_for('addFournisseurAuto'))
+        else:
+            cursor = mydb.cursor()
 
-        # Récupérer la requête de l'utilisateur
-        queryAddFournAuto = flask.request.form['queryEmploye']
+            sql = "INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.FournisseursAutomobiles " \
+                      "(nomFournisseursVehicules, adresseFournisseursVehicules, numTelephoneFournisseursVehicules, " \
+                      "adresseCourrielFournisseursVehicules, villeFournisseursVehicules, " \
+                      "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
+                      "VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(sql, (name, address, tel, email, city, state, country))
+            mydb.commit()
+            flash('Fournisseur ajouté avec succès', category='success')
+            return redirect(url_for('addFournisseurAuto'))
 
-        # cursor = mydb.cursor()
-        # sql = f"""INSERT INTO todo (text) VALUE ("{text}")"""
-
-        # cursor = mydb.cursor()
-        # commande = "INSERT INTO users VALUES (NULL, '{}', '{}', '{}');".format\
-        #     (name, firstName, password1)
-        #
-        # cursor.execute(commande)
-
-    return render_template('ajouterFournisseursAuto.html')
+    return render_template('ajouterFournisseursAuto.html', country=(list(pycountry.countries)))
 
 @app.route('/search-fournisseur-auto', methods=['GET', 'POST'])
 def searchFournisseurAuto():
@@ -238,28 +242,47 @@ def addFournisseurPieces():
         flash('Vous devez être connecté pour accéder à cette page.', category='error')
         return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
 
-    # if flask.request.method == 'POST':
-    #     # Récupérer la requête de l'utilisateur
-    #     queryAddFournPieces = flask.request.form['queryAddFournPieces']
-    #     print(queryAddFournPieces)
-    #
-    #     # Requête SQL pour sélectionner les données dans la table "articles"
-    #     cursor = mydb.cursor()
-    #     # sql = "INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.FournisseursAutomobiles (" \
-    #     #       "idFournisseursVehicules, nomFournisseursVehicules, adresseFournisseursVehicules, " \
-    #     #       "numTelephoneFournisseursVehicules, adresseCourrielFournisseursVehicules, villeFournisseursVehicules, " \
-    #     #       "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
-    #     #       "VALUE ("{}")"
-    #     cursor.execute(sql, (
-    #         '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
-    #         '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
-    #         '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%',
-    #         '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%', '%' + queryAddFournPieces + '%'))
-    #     resultsAddFournPieces = cursor.fetchall()
-    #
-    #     return flask.render_template('fournisseurs.html', results=resultsAddFournPieces, query=queryAddFournPieces)
+    if flask.request.method == 'POST':
+        name = request.form["name"]
+        address = request.form["address"]
+        tel = request.form["tel"]
+        email = request.form["email"]
+        city = request.form["city"]
+        state = request.form["state"]
+        country = request.form["country"]
 
-    return render_template('ajouterFournisseursPieces.html')
+
+        if len(name) < 2:
+            flash('Nom invalide', category='error')
+            return redirect(url_for('addFournisseurPieces'))
+        if len(tel) < 10:
+            flash('Téléphone invalide', category='error')
+            return redirect(url_for('addFournisseurPieces'))
+        if len(email) < 4:
+            flash('E-Mail invalide.', category='error')
+            return redirect(url_for('addFournisseurPieces'))
+        if len(city) < 2:
+            flash('Ville invalide', category='error')
+            return redirect(url_for('addFournisseurPieces'))
+        if len(state) < 2:
+            flash('État / Province invalide', category='error')
+            return redirect(url_for('addFournisseurPieces'))
+        if len(country) < 2:
+            flash('Pays invalide', category='error')
+            return redirect(url_for('addFournisseurPieces'))
+        else:
+            sql = f"""INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.Fournisseurspieces 
+                        (nomFournisseursPieces, adresseFournisseursPieces, numTelephoneFournisseursPieces, 
+                        adresseCourrielFournisseursPieces, villeFournisseursPieces, provinceEtatFournisseursPieces, 
+                        paysFournisseursPieces) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+
+            cursor.execute(sql, (name, address, tel, email, city, state, country))
+            mydb.commit()
+            flash('Fournisseur ajouté avec succès', category='success')
+            return redirect(url_for('addFournisseurPieces'))
+
+    return render_template('ajouterFournisseursPieces.html', country=(list(pycountry.countries)))
 
 @app.route('/search-fournisseur-pieces', methods=['GET', 'POST'])
 def searchFournisseurPieces():
@@ -375,16 +398,16 @@ def sign_up():
             result = cursor.fetchone()
             if result:
                 # L'adresse e-mail existe déjà, renvoyer un message d'erreur
-                flash('Ce compte existe déjà. Veuillez vous connecter ou choisir un autre email.')
+                flash('Ce compte existe déjà. Veuillez vous connecter ou choisir un autre email.', category='error')
                 return redirect(url_for('login'))
             else:
                 sql = "INSERT INTO glo_2005_projet_concessionnairenouvelleauto.users (email, passe, first_name, last_name,  gender, birthdate, region, phone ) VALUES(%s, %s, %s,%s,%s,%s,%s,%s)"
                 cursor.execute(sql, (email, password1, firstName, Name, sex, Date, country, phone))
                 mydb.commit()
-                flash('Compte crée avec succées', category='success')
+                flash('Compte crée avec succès', category='success')
                 return redirect(url_for('login'))
 
-    return render_template("sign-up.html",country=(list(pycountry.countries)))
+    return render_template("sign-up.html", country=(list(pycountry.countries)))
 
 @app.route('/appropos', methods=['GET', 'POST'])
 def appropos():
