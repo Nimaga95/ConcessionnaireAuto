@@ -416,8 +416,8 @@ def appropos():
 
 
 
-@app.route('/test', methods=['GET', 'POST'])
-def teste():
+@app.route('/searchPiece', methods=['GET', 'POST'])
+def searchPiece():
     # Vérifier si l'utilisateur est connecté
     user_id = session.get('user_id')
     # print(user_id)
@@ -495,9 +495,9 @@ def teste():
 
 
 
-        return flask.render_template('test.html', data=data, query=query, headers=headers)
+        return flask.render_template('searchPiece.html', data=data, query=query, headers=headers)
 
-    return render_template('barre_test.html')
+    return render_template('barre_searchPiece.html')
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important
