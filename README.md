@@ -32,7 +32,7 @@ faciliter la gestion d'une Concession Automobile.
 #### 3. Utilisation
 
 1. Assurer vous tout d'abord d'utiliser un interpreteur récent de Python.
-2. Commencer par exécuter le code SQL dans le fichier : console_1.sql
+2. Commencer par exécuter le code SQL dans le fichier : creationDeRequete.sql
 3. Connecter votre base de données et mettez le Shema sur 'glo_2005_Projet_ConcessionnaireNouvelleAuto.
 4. Puis exécuter le fichier database pour charger les données dans votre base de données
 5. Une fois la données crées et les données entrées, exécuter le fichier main ou z simplement dans le terminal : 
