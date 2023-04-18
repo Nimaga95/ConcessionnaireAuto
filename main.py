@@ -24,37 +24,6 @@ def home():
     else:
         return render_template('home.html')
 
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    # Vérifier si l'utilisateur est connecté
-    user_id = session.get('user_id')
-    print(user_id)
-    if 'user_id' not in session:
-        flash('Vous devez être connecté pour accéder à cette page.', category='error')
-        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
-
-    if flask.request.method == 'POST':
-        # Récupérer la requête de l'utilisateur
-        query = flask.request.form['query']
-        print(query)
-
-        # Requête SQL pour sélectionner les données dans la table "articles"
-        cursor = mydb.cursor()
-        sql = "SELECT idPiece, nomPiece, categorie, poidsPiece, prixPiece, datePiece " \
-              "FROM glo_2005_projet_concessionnairenouvelleauto.pieces " \
-              "WHERE idPiece LIKE %s " \
-              "OR nomPiece LIKE %s " \
-              "OR categorie LIKE %s " \
-              "OR poidsPiece LIKE %s " \
-              "OR prixPiece LIKE %s " \
-              "OR datePiece LIKE %s"
-        cursor.execute(sql, ('%' + query + '%', '%' + query + '%', '%' + query + '%',
-                             '%' + query + '%', '%' + query + '%', '%' + query + '%'))
-        results = cursor.fetchall()
-
-        return flask.render_template('searchPiece.html', results=results, query=query)
-
-    return render_template('barre_recherche_Pieces.html')
 
 @app.route('/search-auto', methods=['GET', 'POST'])
 def searchAuto():
