@@ -46,7 +46,7 @@
                 </li>
             </ul>
         </li>
-        <li><a href="/searchPiece">Rechercher</a>
+        <li><a href="/searchLavageAuto">Rechercher</a>
             <ul>
                 <li><a href="/searchPiece">Pièces</a></li>
                 <li><a href="/search-employe">Employes</a></li>
@@ -62,30 +62,34 @@
 <!--        <h1>Concessionnaire NouvelleAuto</h1>-->
 
 <div class="container mt-5 text-center">
-    <h1 class="mb-4">Trouver une pièce en inventaire</h1>
-    <form action="/searchPiece" method="POST">
+    <h1 class="mb-4">Trouver un Lavage d'auto en inventaire</h1>
+    <form action="/searchLavageAuto" method="POST">
         <div class="form-group">
             <input type="text" class="form-control1" id="query" name="query" required placeholder="tapez votre recherche ici ">
             <div class="d-flex justify-content-center">
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" name="piece" value="ID" class="form-check-input" checked>
-                    <label class="form-check-label" for="piece">ID</label>
+                    <input type="checkbox" name="lavage" value="ID" class="form-check-input" checked>
+                    <label class="form-check-label" for="lavage">ID</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" name="piece" value="CATEGORY" class="form-check-input"checked>
-                    <label class="form-check-label" for="piece">Category</label>
+                    <input type="checkbox" name="lavage" value="PRIX" class="form-check-input"checked>
+                    <label class="form-check-label" for="lavage">Prix</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" name="piece" value="POID" class="form-check-input"checked>
-                    <label class="form-check-label" for="piece">Poid</label>
+                    <input type="checkbox" name="lavage" value="NIV" class="form-check-input"checked>
+                    <label class="form-check-label" for="lavage">Niv</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" name="piece" value="PRIX" class="form-check-input"checked>
-                    <label class="form-check-label" for="piece">Prix</label>
+                    <input type="checkbox" name="lavage" value="ID_CLIENT" class="form-check-input"checked>
+                    <label class="form-check-label" for="lavage">Id_Client</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" name="piece" value="DATE" class="form-check-input"checked>
-                    <label class="form-check-label" for="piece">Date</label>
+                    <input type="checkbox" name="lavage" value="ID_EMPLOYE" class="form-check-input"checked>
+                    <label class="form-check-label" for="lavage">Id_Employe</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="lavage" value="DATE" class="form-check-input"checked>
+                    <label class="form-check-label" for="lavage">Date</label>
                 </div>
             </div>
             <div class="mt-3 d-flex justify-content-center">

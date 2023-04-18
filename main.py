@@ -434,6 +434,7 @@ def searchPiece():
         nom = 1
         prix = 0
         category = 0
+        description = 0
         poid = 0
         date = 0
 
@@ -447,6 +448,9 @@ def searchPiece():
 
         if "CATEGORY" in piece:
             category = 1
+
+        if "DESCRIPTION" in piece:
+            description = 1
 
         if "POID" in piece:
             poid = 1
@@ -465,9 +469,9 @@ def searchPiece():
         if "all_date" in time:
             Time = "all"
 
-        sql = "call statisticsPieces(%s, %s, %s, 0, %s, %s, %s, %s);"
+        sql = "call statisticsPieces(%s, %s, %s, %s, %s, %s, %s, %s);"
 
-        cursor.execute(sql, (Time, id, nom, prix, category, poid, date,))
+        cursor.execute(sql, (Time, id, nom, description, prix, category,  poid, date,))
         # cursor.execute(sql)
 
 
@@ -498,6 +502,97 @@ def searchPiece():
         return flask.render_template('searchPiece.html', data=data, query=query, headers=headers)
 
     return render_template('barre_searchPiece.html')
+
+
+@app.route('/searchLavageAuto', methods=['GET', 'POST'])
+def searchLavageAuto():
+    # Vérifier si l'utilisateur est connecté
+    user_id = session.get('user_id')
+    # print(user_id)
+    if 'user_id' not in session:
+        flash('Vous devez être connecté pour accéder à cette page.', category='error')
+        return redirect(url_for('login'))  # Rediriger l'utilisateur vers la page de connexion
+
+    if flask.request.method == 'POST':
+
+        query = flask.request.form['query']
+        # print(query)
+        # Récupérer la requête de l'utilisateur
+        id = 0
+        type = 1
+        prix = 0
+        niv = 0
+        id_client = 0
+        id_employe = 0
+        date = 0
+
+        lavage = request.form.getlist('lavage')
+        time = request.form.getlist('time')
+
+        if "ID" in lavage:
+            id = 1
+        if "TYPE" in lavage:
+            type = 1
+
+        if "PRIX" in lavage:
+            prix = 1
+
+        if "NIV" in lavage:
+            niv = 1
+
+        if "ID_CLIENT" in lavage:
+            id_client = 1
+
+        if "ID_EMPLOYE" in lavage:
+            id_employe = 1
+
+        if "DATE" in lavage:
+            date = 1
+
+        if "last_week" in time:
+            Time = "semaine"
+
+        if "last_month" in time:
+            Time = "mois"
+
+        if "last_year" in time:
+            Time = "year"
+        if "all_date" in time:
+            Time = "all"
+
+        sql = "call statisticsLavageAuto(%s, %s, %s, %s, %s, %s, %s, %s);"
+
+        cursor.execute(sql, (Time, id, type, prix, niv, id_client, id_employe, date))
+        # cursor.execute(sql)
+
+
+
+
+
+
+        headers = [col[0] for col in cursor.description]
+        #print(headers)
+        #results = cursor.fetchall()
+        data = []
+        for row in cursor.fetchall():
+            row_data = {}
+            for i, value in enumerate(row):
+                if value:
+                    row_data[headers[i]] = value
+            if query in row_data.values():
+                data.append(row_data)
+            # print(row_data)
+        #print(data)
+
+
+
+
+
+
+
+        return flask.render_template('searchLavageAuto.html', data=data, query=query, headers=headers)
+
+    return render_template('barre_searchLavageAuto.html')
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = 'hjshjhdjahhhhhhhhhhhhhhhkjshkjdhjs'  # ne pas enléver important
