@@ -474,11 +474,6 @@ def searchPiece():
         cursor.execute(sql, (Time, id, nom, description, prix, category,  poid, date,))
         # cursor.execute(sql)
 
-
-
-
-
-
         headers = [col[0] for col in cursor.description]
         #print(headers)
         #results = cursor.fetchall()
@@ -492,12 +487,6 @@ def searchPiece():
                 data.append(row_data)
             # print(row_data)
         #print(data)
-
-
-
-
-
-
 
         return flask.render_template('searchPiece.html', data=data, query=query, headers=headers)
 
@@ -565,11 +554,6 @@ def searchLavageAuto():
         cursor.execute(sql, (Time, id, type, prix, niv, id_client, id_employe, date))
         # cursor.execute(sql)
 
-
-
-
-
-
         headers = [col[0] for col in cursor.description]
         #print(headers)
         #results = cursor.fetchall()
@@ -583,12 +567,6 @@ def searchLavageAuto():
                 data.append(row_data)
             # print(row_data)
         #print(data)
-
-
-
-
-
-
 
         return flask.render_template('searchLavageAuto.html', data=data, query=query, headers=headers)
 
