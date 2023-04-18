@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
+    password="teddybear",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
@@ -189,17 +189,33 @@ def addFournisseurAuto():
         else:
             cursor = mydb.cursor()
 
-            sql = "INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.FournisseursAutomobiles " \
+            try:
+
+                sql = "INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.FournisseursAutomobiles " \
                       "(nomFournisseursVehicules, adresseFournisseursVehicules, numTelephoneFournisseursVehicules, " \
                       "adresseCourrielFournisseursVehicules, villeFournisseursVehicules, " \
                       "provinceEtatFournisseursVehicules, paysFournisseursVehicules) " \
                       "VALUES (%s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(sql, (name, address, tel, email, city, state, country))
-            mydb.commit()
-            flash('Fournisseur ajouté avec succès', category='success')
-            return redirect(url_for('addFournisseurAuto'))
+                cursor.execute(sql, (name, address, tel, email, city, state, country))
+                mydb.commit()
+                flash('Fournisseur ajouté avec succès', category='success')
+                return redirect(url_for('addFournisseurAuto'))
+
+            except pymysql.Error as exception:
+                # Obtenir le SQLSTATE
+                sqlstate = exception.args[0]
+
+                # Manipuler l'erreur basé sur le SQLSTATE
+                if sqlstate == '50000':
+                    message = 'Trigger error: ' + str(exception)
+                else:
+                    message = 'Erreur d\'insertion : ' + str(exception)
+
+                # Flash un message d'erreur
+                flash(message, 'error')
 
     return render_template('ajouterFournisseursAuto.html', country=(list(pycountry.countries)))
+
 
 @app.route('/search-fournisseur-auto', methods=['GET', 'POST'])
 def searchFournisseurAuto():
@@ -271,16 +287,35 @@ def addFournisseurPieces():
             flash('Pays invalide', category='error')
             return redirect(url_for('addFournisseurPieces'))
         else:
-            sql = f"""INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.Fournisseurspieces 
-                        (nomFournisseursPieces, adresseFournisseursPieces, numTelephoneFournisseursPieces, 
-                        adresseCourrielFournisseursPieces, villeFournisseursPieces, provinceEtatFournisseursPieces, 
-                        paysFournisseursPieces) 
-                        VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+            cursor = mydb.cursor()
 
-            cursor.execute(sql, (name, address, tel, email, city, state, country))
-            mydb.commit()
-            flash('Fournisseur ajouté avec succès', category='success')
-            return redirect(url_for('addFournisseurPieces'))
+            try:
+
+                sql = f"""INSERT INTO glo_2005_Projet_ConcessionnaireNouvelleAuto.Fournisseurspieces 
+                                        (nomFournisseursPieces, adresseFournisseursPieces, numTelephoneFournisseursPieces, 
+                                        adresseCourrielFournisseursPieces, villeFournisseursPieces, provinceEtatFournisseursPieces, 
+                                        paysFournisseursPieces) 
+                                        VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+
+                cursor.execute(sql, (name, address, tel, email, city, state, country))
+                mydb.commit()
+                flash('Fournisseur ajouté avec succès', category='success')
+                return redirect(url_for('addFournisseurPieces'))
+
+            except pymysql.Error as exception:
+                # Obtenir le SQLSTATE
+                sqlstate = exception.args[0]
+
+                # Manipuler l'erreur basé sur le SQLSTATE
+                if sqlstate == '50000':
+                    message = 'Trigger error: ' + str(exception)
+                else:
+                    message = 'Erreur d\'insertion : ' + str(exception)
+
+                # Flash un message d'erreur
+                flash(message, 'error')
+
+
 
     return render_template('ajouterFournisseursPieces.html', country=(list(pycountry.countries)))
 
