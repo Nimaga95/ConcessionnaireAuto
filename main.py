@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="teddybear",  # à remplacer par le password de votre ordinateur pour les tests
+    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
