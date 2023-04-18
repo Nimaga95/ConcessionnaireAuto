@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 mydb = pymysql.connect(
     host="localhost",
     user="root",
-    password="teddybear",  # à remplacer par le password de votre ordinateur pour les tests
+    password="lennyplante5@Sql.com",  # à remplacer par le password de votre ordinateur pour les tests
     db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
     autocommit=True,
 )
@@ -19,7 +19,10 @@ cursor = mydb.cursor()
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    if 'user_id' in session:
+        return render_template('home_signed_in.html')
+    else:
+        return render_template('home.html')
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -359,8 +362,6 @@ def searchFournisseurPieces():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     user_id = session.get('user_id')
-    if 'user_id' in session:
-        return redirect(url_for('home'))
 
     if request.method == 'POST':
         email = request.form['email']
@@ -399,9 +400,6 @@ def utilisateur():
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     user_id = session.get('user_id')
-    if 'user_id' in session:
-        return redirect(url_for('home'))
-
     if request.method == 'POST':
         email = request.form['email']
         firstName = request.form['firstName']
