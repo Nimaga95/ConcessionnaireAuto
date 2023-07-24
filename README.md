@@ -8,7 +8,7 @@ In this project we decided to create an intranet for a car dealership. In this s
 will be able to consult information on employees, check if the stocks of parts, look at the cars in stock.
 He can also search for information on suppliers and the products they offer. He will be able to add/search for information on a supplier. Add data on a part, a car or an employee.
 
-facilitate the management of a Car Dealership.
+The goal is to facilitate the management of a Car Dealership.
 
 ### Requirements
 
