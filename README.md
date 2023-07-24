@@ -4,53 +4,53 @@ https://github.com/Nimaga95/Site_Internet_ConcessionnaireAuto/assets/117949986/f
 
 # ConcessionnaireNouvelleAuto
 
-Dans ce projet nous avons décidé de créer un intranet pour un concessionnaire automobile. Dans ce site le concessionnaire 
-pourra consulter des informations sur les employés, vérifier si les stocks des piéeces, régarder les voitures en stock. 
-Il pourra également chercher les informations sur les fournisseurs et les produits qu'ils offrent. Il pourra ajouter/chercher des informations sur un fournisseur. Ajouter des données sur une pieces, une voiture ou un emplyé.
+In this project we decided to create an intranet for a car dealership. In this site the dealer
+will be able to consult information on employees, check if the stocks of parts, look at the cars in stock.
+He can also search for information on suppliers and the products they offer. He will be able to add/search for information on a supplier. Add data on a part, a car or an employee.
 
-faciliter la gestion d'une Concession Automobile. 
+facilitate the management of a Car Dealership.
 
 ### Requirements
 
 ##### 1. MySQL 8.0
 
-- Le projet est réalisé sur **MySQL 8.0** comme la base de données. Installer MySQL dépuis [cette page](https://dev.mysql.com/downloads/installer/).
+- The project is made on **MySQL 8.0** as the database. Install MySQL from [this page](https://dev.mysql.com/downloads/installer/).
 
-- Dans les fichiers database, console1, main remplacer les infos ci-dessous :
+- In the database, console1, main files replace the info below:
 
   ```
     host="localhost",
     user="root",
-    password="your_password",  # à remplacer par le password de votre ordinateur pour les tests
-    db="glo_2005_Projet_ConcessionnaireNouvelleAuto",
+    password="your_password", # to be replaced by the password of your computer for the tests
+    db="glo_2005_NewAuto_Dealership_Project",
     autocommit=True,
 
   ```
 
-##### 2. Installer les librairies du project en entrant ce commande dans le terminale de votre application Python:
+##### 2. Install the project libraries by entering this command in the terminal of your Python application:
 
 ```
  pip install -r requirements.txt
 ```
 
-#### 3. Utilisation
+#### 3. Use
 
-1. Assurer vous tout d'abord d'utiliser un interpreteur récent de Python.
-2. Commencer par exécuter le code SQL dans le fichier : creationDeRequete.sql
-3. Connecter votre base de données et mettez le Shema sur 'glo_2005_Projet_ConcessionnaireNouvelleAuto.
-4. Puis exécuter le fichier database pour charger les données dans votre base de données
-5. Une fois la données crées et les données entrées, exécuter le fichier main ou z simplement dans le terminal : 
+1. First make sure you are using a recent Python interpreter.
+2. Start by executing the SQL code in the file: creationDeRequete.sql
+3. Connect your database and put the Schema on 'glo_2005_Projet_ConcessionnaireNouvelleAuto.
+4. Then run the database file to load the data into your database
+5. Once the data is created and the data entered, simply run the main or z file in the terminal:
 
    ```
    $ pyton main.py
    ```
 
-6. Allez [ici](http://localhost:5000/home) pour accéder au site!
+6. Go [here](http://localhost:5000/home) to access the site!
 
-### Bonus : créer un compte ou entrer simplement ses infos
+### Bonus: create an account or simply enter your info
     
         
    ```
-   Email : janedoe@gmail.com
-   Mot de passe : 123456
+   Email: janedoe@gmail.com
+   Password: 123456
    ```
